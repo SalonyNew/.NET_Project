@@ -1,0 +1,14 @@
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\bin\Debug\net8.0\Domain.deps.json
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\bin\Debug\net8.0\Domain.runtimeconfig.json
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\bin\Debug\net8.0\Domain.dll
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\bin\Debug\net8.0\Domain.pdb
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\obj\Debug\net8.0\Domain.csproj.AssemblyReference.cache
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\obj\Debug\net8.0\Domain.dll
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\obj\Debug\net8.0\refint\Domain.dll
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\obj\Debug\net8.0\Domain.pdb
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\obj\Debug\net8.0\Domain.genruntimeconfig.cache
+C:\Users\Coditas\source\JobSearchApp\JobSearch\Domain\obj\Debug\net8.0\ref\Domain.dll

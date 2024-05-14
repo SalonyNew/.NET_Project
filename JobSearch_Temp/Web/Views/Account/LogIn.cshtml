@@ -1,0 +1,52 @@
+﻿@model Services.ViewModels.Login;
+@{
+    ViewBag.Title = "User LogIn";
+}
+@{
+    <h1>User LogIn</h1>
+
+    <hr />
+    <div class="container-fluid bg-light p-3 rounded">
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mb-4">Login</h5>
+                        <form method="post" asp-controller="Account" asp-action="LogIn">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label">Name:</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label">Email:</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password" class="control-label">Password:</label>
+                                <input asp-for="Password" type="password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input asp-for="RememberMe" class="form-check-input" />
+                                    <label class="form-check-label" asp-for="RememberMe">Remember me</label>
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">Log In</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <a asp-action="SignUp">Back to SignUp</a>
+    </div>
+
+}

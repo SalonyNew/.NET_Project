@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\wwwroot\\jobimage.png",
+      "PackagePath": "staticwebassets\\jobimage.png"
+    },
+    {
       "Id": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

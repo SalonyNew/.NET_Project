@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Services.ViewModels;
 using System.Text;
 using Services.PasswordEncryption;
+using System.Security.Cryptography.Xml;
+
 
 
 namespace Web.Controllers
@@ -13,12 +15,17 @@ namespace Web.Controllers
     public class AccountController : Controller
     {
         private readonly AppdbContext _context;
+        private readonly IConfiguration _config;
+        private readonly AESEncryptionUtility _encryption;
 
-        public AccountController(AppdbContext context)
+        public AccountController(AppdbContext context, IConfiguration config, AESEncryptionUtility encryption)
         {
             _context = context;
+            _config = config;
+            _encryption = encryption;
         }
 
+        
 
         [HttpGet]
         public IActionResult Signup()
@@ -40,9 +47,8 @@ namespace Web.Controllers
                     }
 
                     var roleId = _context.Roles.FirstOrDefault(r => r.Name == model.Role)?.RoleId;
-
-
-                    
+                     
+                    var passwordHash = _encryption.Encrypt(model.Password, _config["EncryptionKey"], out string passwordSalt);
                     var user = new UserCredential
                     {
                         Name = model.Name,
@@ -53,8 +59,8 @@ namespace Web.Controllers
                         .Where(role => role.Name == model.Role)
                         .Select(role => role.RoleId)
                         .FirstOrDefault(),
-                        PasswordHash = model.Password, // Store the encrypted password
-                        PasswordSalt = model.Password,
+                        PasswordHash = passwordHash, // Store the encrypted password
+                        PasswordSalt = passwordSalt,
                         CreatedAt = DateTime.Now,
                         UpdatedOn = DateTime.Now
                     };
@@ -73,10 +79,10 @@ namespace Web.Controllers
 
             return View(model);
         }
-
+        [HttpGet]
         public IActionResult SignupSuccess()
         {
-            return View();
+            return RedirectToAction("Dashboard");
         }
 
 
@@ -93,8 +99,7 @@ namespace Web.Controllers
                 if (ModelState.IsValid)
                 {
                     
-                    var user = _context.UserCredentials.FirstOrDefault(u => u.Email == model.Email);
-                   
+                    var user = _context.UserCredentials.FirstOrDefault(u => u.Email == model.Email); 
                     if (user != null && user.PasswordHash == model.Password)
                     {
                         return RedirectToAction("Dashboard"); 
@@ -116,5 +121,11 @@ namespace Web.Controllers
         {
             return View();
         }
+
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+
     }
 }

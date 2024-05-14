@@ -1,5 +1,6 @@
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Services.PasswordEncryption;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppdbContext>(optionsBuilder => optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DBString")));
@@ -8,6 +9,8 @@ builder.Services.AddDbContext<AppdbContext>(options => options.UseSqlServer
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<AESEncryptionUtility>();
+
 
 var app = builder.Build();
 

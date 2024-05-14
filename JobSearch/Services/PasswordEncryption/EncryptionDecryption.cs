@@ -1,64 +1,48 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-
 namespace Services.PasswordEncryption
 {
-    public class EncryptionDecryption
+    public class AESEncryptionUtility
     {
-        public static string Encrypt(string text, string key, string iv)
+        public string Encrypt(string plaintext, string encryptionKey, out string ivKey)
         {
-            using (Aes aesAlg = Aes.Create())
+            using Aes aesObject = Aes.Create();
+
+            aesObject.Key = Convert.FromBase64String(encryptionKey); 
+            aesObject.BlockSize = 128;
+            aesObject.Padding = PaddingMode.Zeros;
+            aesObject.GenerateIV();
+
+            ivKey = Convert.ToBase64String(aesObject.IV);
+
+            ICryptoTransform encryptor = aesObject.CreateEncryptor();
+
+            byte[] encryptedData;
+
+            using (MemoryStream ms = new MemoryStream())
             {
-                aesAlg.Key = Encoding.UTF8.GetBytes(key);
-                aesAlg.IV = Encoding.UTF8.GetBytes(iv);
-
-                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-
-                byte[] encryptedBytes;
-
-                using (MemoryStream msEncrypt = new MemoryStream())
+                using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
                 {
-                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    using (StreamWriter sw = new StreamWriter(cs))
                     {
-                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
-                        {
-                            swEncrypt.Write(text);
-                        }
-                        encryptedBytes = msEncrypt.ToArray();
+                        sw.Write(plaintext);
                     }
+                    encryptedData = ms.ToArray();
                 }
-
-                return Convert.ToBase64String(encryptedBytes);
             }
+
+            return Convert.ToBase64String(encryptedData);
         }
+        
+        //public bool AuthenticateUser(string EncryptedKey, string StoredPassword)
+        //{
 
-        public static string Decrypt(string cipherText, string key, string iv)
-        {
-            byte[] cipherBytes = Convert.FromBase64String(cipherText);
 
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Encoding.UTF8.GetBytes(key);
-                aesAlg.IV = Encoding.UTF8.GetBytes(iv);
+        //}
 
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
-                string plaintext = null;
-
-                using (MemoryStream msDecrypt = new MemoryStream(cipherBytes))
-                {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                    {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                        {
-                            plaintext = srDecrypt.ReadToEnd();
-                        }
-                    }
-                }
-
-                return plaintext;
-            }
-        }
     }
 }
+
+

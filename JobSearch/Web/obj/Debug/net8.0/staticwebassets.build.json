@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wPWiVdv6qR8y1RHShrVK4nSC59rjIUMw+Bs1Zboqjxo=",
+  "Hash": "h/h5g7ic4CEJ4OYisID0i2UoRQmdCTPXqKFf686txBM=",
   "Source": "Web",
   "BasePath": "_content/Web",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\wwwroot\\jobimage.png",
+      "SourceId": "Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\wwwroot\\",
+      "BasePath": "_content/Web",
+      "RelativePath": "jobimage.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\jobimage.png"
     },
     {
       "Identity": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\wwwroot\\js\\site.js",

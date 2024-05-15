@@ -4112,11 +4112,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\Repository.csproj",
+      "projectUniqueName": "C:\\.NET_Project\\JobSearch\\Repository\\Repository.csproj",
       "projectName": "Repository",
-      "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\Repository.csproj",
+      "projectPath": "C:\\.NET_Project\\JobSearch\\Repository\\Repository.csproj",
       "packagesPath": "C:\\Users\\Coditas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\obj\\",
+      "outputPath": "C:\\.NET_Project\\JobSearch\\Repository\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Coditas\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4187,7 +4187,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

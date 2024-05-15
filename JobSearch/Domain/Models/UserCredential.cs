@@ -25,6 +25,10 @@ public partial class UserCredential
 
     public DateTime UpdatedOn { get; set; }
 
+    public int? PhoneNo { get; set; }
+
+    public DateOnly? Dob { get; set; }
+
     public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
 
     public virtual ICollection<Connect> ConnectReceivers { get; set; } = new List<Connect>();

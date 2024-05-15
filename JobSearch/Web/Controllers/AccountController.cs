@@ -62,7 +62,9 @@ namespace Web.Controllers
                         PasswordHash = passwordHash, // Store the encrypted password
                         PasswordSalt = passwordSalt,
                         CreatedAt = DateTime.Now,
-                        UpdatedOn = DateTime.Now
+                        UpdatedOn = DateTime.Now,
+                        PhoneNo = model.PhoneNo,
+                        Dob = model.Dob
                     };
 
                     // Save the user to the database
@@ -99,8 +101,9 @@ namespace Web.Controllers
                 if (ModelState.IsValid)
                 {
                     
-                    var user = _context.UserCredentials.FirstOrDefault(u => u.Email == model.Email); 
-                    if (user != null && user.PasswordHash == model.Password)
+                    var user = _context.UserCredentials.FirstOrDefault(u => u.Email == model.Email);
+                    var passwordHash = _encryption.Authencrypt(model.Password, _config["EncryptionKey"], user.PasswordSalt );
+                    if (user != null && user.PasswordHash == passwordHash)
                     {
                         return RedirectToAction("Dashboard"); 
                     }

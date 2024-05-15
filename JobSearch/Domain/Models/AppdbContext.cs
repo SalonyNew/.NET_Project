@@ -157,6 +157,7 @@ public partial class AppdbContext : DbContext
 
             entity.Property(e => e.UserId).HasDefaultValueSql("(newid())");
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.Dob).HasColumnName("DOB");
             entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
 
             entity.HasOne(d => d.Role).WithMany(p => p.UserCredentials)

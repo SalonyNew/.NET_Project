@@ -9,31 +9,42 @@ namespace Services.ViewModels
 {
     public class Signup
     {
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Name must be between 2 and 50 characters.")]
         public string Name { get; set; } = null!;
-        [Required]
-        [EmailAddress]
-        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
+
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; } = null!;
-        
-        [Required]
+
+        [Required(ErrorMessage = "Age is required.")]
+        [Range(18, 120, ErrorMessage = "Age must be between 18 and 120.")]
         public int Age { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Gender is required.")]
         public string Gender { get; set; } = null!;
-        [Required]
+
+        [Required(ErrorMessage = "Phone number is required.")]
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Invalid phone number.")]
+        public int PhoneNo { get; set; }
+
+        [Required(ErrorMessage = "Date of Birth is required.")]
+        [DataType(DataType.Date, ErrorMessage = "Invalid date format.")]
+        public DateOnly Dob { get; set; }
+
+        [Required(ErrorMessage = "Role is required.")]
         public string Role { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
-
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 20 characters.")]
         public string Password { get; set; } = null!;
-       
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "ConfirmPassword")]
-        [Compare("Password",ErrorMessage ="Password and ConfirmPassword does not match.")]
-        public string ConfirmPassword { get; set; } = null!;
-       
 
+        [Required(ErrorMessage = "Confirm Password is required.")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "Password and Confirm Password do not match.")]
+        public string ConfirmPassword { get; set; } = null!;
     }
+
 }

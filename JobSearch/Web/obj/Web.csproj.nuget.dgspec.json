@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\Web.csproj": {}
+    "C:\\.NET_Project\\JobSearch\\Web\\Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Domain\\Domain.csproj": {
+    "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Domain\\Domain.csproj",
+        "projectPath": "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Coditas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Domain\\obj\\",
+        "outputPath": "C:\\.NET_Project\\JobSearch\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Coditas\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,18 +82,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\Repository.csproj": {
+    "C:\\.NET_Project\\JobSearch\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\Repository.csproj",
+        "projectUniqueName": "C:\\.NET_Project\\JobSearch\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\Repository.csproj",
+        "projectPath": "C:\\.NET_Project\\JobSearch\\Repository\\Repository.csproj",
         "packagesPath": "C:\\Users\\Coditas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\obj\\",
+        "outputPath": "C:\\.NET_Project\\JobSearch\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Coditas\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -164,18 +164,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Services\\Services.csproj": {
+    "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Services\\Services.csproj",
+        "projectUniqueName": "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Services\\Services.csproj",
+        "projectPath": "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj",
         "packagesPath": "C:\\Users\\Coditas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Services\\obj\\",
+        "outputPath": "C:\\.NET_Project\\JobSearch\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Coditas\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -246,18 +246,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\Web.csproj": {
+    "C:\\.NET_Project\\JobSearch\\Web\\Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\Web.csproj",
+        "projectUniqueName": "C:\\.NET_Project\\JobSearch\\Web\\Web.csproj",
         "projectName": "Web",
-        "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\Web.csproj",
+        "projectPath": "C:\\.NET_Project\\JobSearch\\Web\\Web.csproj",
         "packagesPath": "C:\\Users\\Coditas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\obj\\",
+        "outputPath": "C:\\.NET_Project\\JobSearch\\Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Coditas\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -274,14 +274,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Domain\\Domain.csproj"
+              "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj"
               },
-              "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\Repository.csproj": {
-                "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\Repository.csproj"
+              "C:\\.NET_Project\\JobSearch\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\.NET_Project\\JobSearch\\Repository\\Repository.csproj"
               },
-              "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Services\\Services.csproj": {
-                "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Services\\Services.csproj"
+              "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj": {
+                "projectPath": "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj"
               }
             }
           }
@@ -341,7 +341,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

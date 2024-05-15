@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "E1Xs3a5P7IQCq6wIonMA9S1xZZiM5YhsDznXs7mV99EMMez+o+tUYESB0+qQY4Qd1UjsCxn+LEOp40VfVcynTA==",
+  "dgSpecHash": "BqRayP6IBKUHwyMyepLnIHv1HdJXd9Cp6ILIeXVzWOZdvzrGrazMpv/+IxmO0j6Nwd4fVMjV02RA7MlrFUn+kQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Services\\Services.csproj",
+  "projectFilePath": "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Coditas\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Coditas\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

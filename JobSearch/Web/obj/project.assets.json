@@ -4172,11 +4172,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\Web.csproj",
+      "projectUniqueName": "C:\\.NET_Project\\JobSearch\\Web\\Web.csproj",
       "projectName": "Web",
-      "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\Web.csproj",
+      "projectPath": "C:\\.NET_Project\\JobSearch\\Web\\Web.csproj",
       "packagesPath": "C:\\Users\\Coditas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Web\\obj\\",
+      "outputPath": "C:\\.NET_Project\\JobSearch\\Web\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Coditas\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4193,14 +4193,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Domain\\Domain.csproj"
+            "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj"
             },
-            "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\Repository.csproj": {
-              "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Repository\\Repository.csproj"
+            "C:\\.NET_Project\\JobSearch\\Repository\\Repository.csproj": {
+              "projectPath": "C:\\.NET_Project\\JobSearch\\Repository\\Repository.csproj"
             },
-            "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Services\\Services.csproj": {
-              "projectPath": "C:\\Users\\Coditas\\source\\JobSearchApp\\JobSearch\\Services\\Services.csproj"
+            "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj": {
+              "projectPath": "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj"
             }
           }
         }
@@ -4260,7 +4260,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

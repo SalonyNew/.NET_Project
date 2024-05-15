@@ -9,7 +9,7 @@ namespace Services.PasswordEncryption
         {
             using Aes aesObject = Aes.Create();
 
-            aesObject.Key = Convert.FromBase64String(encryptionKey); 
+            aesObject.Key = Convert.FromBase64String(encryptionKey);
             aesObject.BlockSize = 128;
             aesObject.Padding = PaddingMode.Zeros;
             aesObject.GenerateIV();
@@ -34,14 +34,30 @@ namespace Services.PasswordEncryption
 
             return Convert.ToBase64String(encryptedData);
         }
-        
-        //public bool AuthenticateUser(string EncryptedKey, string StoredPassword)
-        //{
+
+        public string Authencrypt(string Password,string _encryptionKey, in string IVkey)
+        {
+            using Aes aesObject = Aes.Create();
+            aesObject.Key = Convert.FromBase64String(_encryptionKey);
+            aesObject.BlockSize = 128;
+            aesObject.Padding = PaddingMode.Zeros; //key generation logic 
+            aesObject.IV = Convert.FromBase64String(IVkey);
 
 
-        //}
+            ICryptoTransform enryptor = aesObject.CreateEncryptor();
+            byte[] encryptedData;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using CryptoStream cs = new CryptoStream(ms, enryptor, CryptoStreamMode.Write);
+                using (StreamWriter sw = new StreamWriter(cs))
+                {
+                    sw.Write(Password);
 
-
+                }
+                encryptedData = ms.ToArray();
+            }
+            return Convert.ToBase64String(encryptedData);
+        }
     }
 }
 

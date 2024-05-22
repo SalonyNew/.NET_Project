@@ -7,6 +7,9 @@ using Services.ViewModels;
 using System.Text;
 using Services.PasswordEncryption;
 using System.Security.Cryptography.Xml;
+using Azure.Identity;
+using Services;
+using System.Diagnostics.Eventing.Reader;
 
 
 
@@ -17,12 +20,14 @@ namespace Web.Controllers
         private readonly AppdbContext _context;
         private readonly IConfiguration _config;
         private readonly AESEncryptionUtility _encryption;
+        private readonly JWTHelper _helper;
 
-        public AccountController(AppdbContext context, IConfiguration config, AESEncryptionUtility encryption)
+        public AccountController(AppdbContext context, IConfiguration config, AESEncryptionUtility encryption,JWTHelper helper)
         {
             _context = context;
             _config = config;
             _encryption = encryption;
+            _helper = helper;
         }
 
         
@@ -48,7 +53,7 @@ namespace Web.Controllers
 
                     var roleId = _context.Roles.FirstOrDefault(r => r.Name == model.Role)?.RoleId;
                      
-                    var passwordHash = _encryption.Encrypt(model.Password, _config["EncryptionKey"], out string passwordSalt);
+                    var passwordHash = _encryption.Encrypt(model.Password, _config["EncryptionKey"]!, out string passwordSalt);
                     var user = new UserCredential
                     {
                         Name = model.Name,
@@ -59,7 +64,7 @@ namespace Web.Controllers
                         .Where(role => role.Name == model.Role)
                         .Select(role => role.RoleId)
                         .FirstOrDefault(),
-                        PasswordHash = passwordHash, // Store the encrypted password
+                        PasswordHash = passwordHash, 
                         PasswordSalt = passwordSalt,
                         CreatedAt = DateTime.Now,
                         UpdatedOn = DateTime.Now,
@@ -67,7 +72,7 @@ namespace Web.Controllers
                         Dob = model.Dob
                     };
 
-                    // Save the user to the database
+                    
                     _context.UserCredentials.Add(user);
                     _context.SaveChanges();
 
@@ -100,12 +105,24 @@ namespace Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
-                    var user = _context.UserCredentials.FirstOrDefault(u => u.Email == model.Email);
-                    var passwordHash = _encryption.Authencrypt(model.Password, _config["EncryptionKey"], user.PasswordSalt );
+                    var user = _context.UserCredentials
+                        .Where(u => u.Email == model.Email).FirstOrDefault();
+
+                        var passwordHash = _encryption.Authencrypt(model.Password, _config["EncryptionKey"]!, user!.PasswordSalt);
                     if (user != null && user.PasswordHash == passwordHash)
                     {
-                        return RedirectToAction("Dashboard"); 
+                        var RoleName = _context.Roles.Where(role => role.RoleId == user.RoleId).Select(role => role.Name).FirstOrDefault();
+                        var token = _helper.GenerateJwtToken(user.Email, RoleName!.ToString());
+
+                        var cookieOptions = new CookieOptions
+                        {
+                            HttpOnly = true,
+                            Secure = true,
+                            SameSite = SameSiteMode.Strict
+                        };
+
+                        HttpContext.Response.Cookies.Append("jwtToken", token, cookieOptions);
+                        return RedirectToAction("Dashboard");
                     }
                     else
                     {
@@ -113,8 +130,9 @@ namespace Web.Controllers
                         return View(model);
                     }
                 }
+
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while processing your request. Please try again later.");               
             }

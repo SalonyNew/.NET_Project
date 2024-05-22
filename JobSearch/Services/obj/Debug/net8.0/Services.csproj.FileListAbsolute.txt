@@ -27,3 +27,6 @@ C:\.NET_Project\JobSearch\Services\bin\Debug\net8.0\Services.dll
 C:\.NET_Project\JobSearch\Services\bin\Debug\net8.0\Services.pdb
 C:\.NET_Project\JobSearch\Services\obj\Debug\net8.0\Services.genruntimeconfig.cache
 C:\.NET_Project\JobSearch\Services\obj\Debug\net8.0\ref\Services.dll
+C:\.NET_Project\JobSearch\Services\bin\Debug\net8.0\Domain.dll
+C:\.NET_Project\JobSearch\Services\bin\Debug\net8.0\Domain.pdb
+C:\.NET_Project\JobSearch\Services\obj\Debug\net8.0\Services.csproj.Up2Date

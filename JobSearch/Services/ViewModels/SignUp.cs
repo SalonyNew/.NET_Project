@@ -25,8 +25,8 @@ namespace Services.ViewModels
         public string Gender { get; set; } = null!;
 
         [Required(ErrorMessage = "Phone number is required.")]
-        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Invalid phone number.")]
-        public int PhoneNo { get; set; }
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Invalid phone number.")]
+        public string PhoneNo { get; set; }
 
         [Required(ErrorMessage = "Date of Birth is required.")]
         [DataType(DataType.Date, ErrorMessage = "Invalid date format.")]

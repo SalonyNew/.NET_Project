@@ -15,7 +15,7 @@ public partial class Profile
 
     public string? Skills { get; set; }
 
-    public byte[] Resume { get; set; } = null!;
+    public string? Resume { get; set; } = null!;
 
     public string? CompanyName { get; set; }
 

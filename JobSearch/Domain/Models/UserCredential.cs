@@ -25,7 +25,7 @@ public partial class UserCredential
 
     public DateTime UpdatedOn { get; set; }
 
-    public int? PhoneNo { get; set; }
+    public string? PhoneNo { get; set; }
 
     public DateOnly? Dob { get; set; }
 

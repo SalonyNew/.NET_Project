@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\JP1.jpg"
     },
     {
+      "Id": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\Login1.png",
+      "PackagePath": "staticwebassets\\Login1.png"
+    },
+    {
       "Id": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

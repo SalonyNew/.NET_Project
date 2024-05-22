@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
     <style>
-        /* Your CSS styles here */
         * {
             padding: 0;
             margin: 0;
@@ -70,8 +69,6 @@
                 cursor: pointer;
                 display: none;
             }
-
-        /* responsive navbar css */
         .sideNavigationBar {
             height: 100%;
             position: fixed;
@@ -146,9 +143,6 @@
             text-decoration: none;
             color: black;
         }
-
-        /* Header content responsive */
-        .side2 img {
             width: 500px;
         }
 
@@ -163,8 +157,6 @@
         .line {
             margin-top: 80px;
         }
-
-        /* section */
         section .topic a {
             font-size: 25px;
             font-weight: 500;
@@ -187,7 +179,6 @@
                 cursor: default;
             }
 
-        /* Contact Page */
         .contact {
             padding: 20px;
         }
@@ -265,10 +256,10 @@
         .center {
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Center vertically */
-            align-items: center; /* Center horizontally */
-            height: 100vh; /* Set height to viewport height for vertical centering */
-            width: 100%; /* Take up full width of parent division */
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            width: 100%; 
         }
 
         .title1 {
@@ -284,7 +275,7 @@
             color: grey;
         }
 
-        /* Footer */
+        
         footer {
             background: var(--primary-color);
             padding: 15px 0;
@@ -311,25 +302,21 @@
         <div class="navbar">
             <ul>
                 <li><a href="#Home">Home</a></li>
-                <li><a href="#Jobs">Jobs</a></li>
-                <li><a href="#Account">Account</a></li>
+                <li><a asp-controller="Job" asp-action="JobPost">JobPost</a></li>
+                @* <li><a asp-controller="Profile" asp-action="Profile">Profile</a></li> *@
                 <li><a href="#">About</a></li>
-                <li><a href="#">Sign Up</a></li>
+                <li><a asp-controller="Account" asp-action="SignUp">SignUp</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Side navigation bar for responsive website -->
     <div class="sideNavigationBar" id="sideNavigationBar">
         <a href="#" class="closeButton" onclick="closeNavbar()">&#x274C;</a>
         <a href="#">Home</a>
-        <a href="#">Jobs</a>
-        <a href="#">Account</a>
-        <a href="#">About</a>
-        <a href="#">Sign Up</a>
+        <a asp-controller="Job" asp-action="JobPost">JobPost</a>
+        @* <a asp-controller="Profile" asp-action="Profile">Profile</a> *@
+        <a asp-controller="Account" asp-action="SignUp">SignUp</a>
     </div>
-
-    <!-- Content -->
     <div class="line" id="Home">
         <div class="side1">
             <h1>Find your dream job with us !!!</h1>
@@ -338,8 +325,6 @@
             <img src="\JP1.jpg" width="500hv">
         </div>
     </div>
-
-    <!-- Footer section -->
     <footer>
         <div class="center">
             <div class="title1">About Us</div>

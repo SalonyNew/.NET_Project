@@ -4,14 +4,14 @@
     "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj": {}
   },
   "projects": {
-    "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj": {
+    "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj",
-        "projectName": "Services",
-        "projectPath": "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj",
+        "projectUniqueName": "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Coditas\\.nuget\\packages\\",
-        "outputPath": "C:\\.NET_Project\\JobSearch\\Services\\obj\\",
+        "outputPath": "C:\\.NET_Project\\JobSearch\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Coditas\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -45,6 +45,96 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj",
+        "projectName": "Services",
+        "projectPath": "C:\\.NET_Project\\JobSearch\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\Coditas\\.nuget\\packages\\",
+        "outputPath": "C:\\.NET_Project\\JobSearch\\Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Coditas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\.NET_Project\\JobSearch\\Domain\\Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.4, )"

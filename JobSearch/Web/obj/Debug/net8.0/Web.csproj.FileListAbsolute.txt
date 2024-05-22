@@ -283,3 +283,5 @@ C:\.NET_Project\JobSearch\Web\obj\Debug\net8.0\scopedcss\projectbundle\Web.bundl
 C:\.NET_Project\JobSearch\Web\obj\Debug\net8.0\Web.csproj.Up2Date
 C:\.NET_Project\JobSearch\Web\obj\Debug\net8.0\Web.genruntimeconfig.cache
 C:\.NET_Project\JobSearch\Web\obj\Debug\net8.0\ref\Web.dll
+C:\.NET_Project\JobSearch\Web\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\.NET_Project\JobSearch\Web\obj\Debug\net8.0\Web.MvcApplicationPartsAssemblyInfo.cs

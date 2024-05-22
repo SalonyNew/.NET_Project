@@ -12,12 +12,6 @@
             box-sizing: border-box;
         }
 
-      /*   body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        } */
-
-        /* Navbar */
         .navbar {
             background-color: #333;
             color: #fff;
@@ -29,8 +23,6 @@
                 text-decoration: none;
                 margin-right: 20px;
             }
-
-        /* Jumbotron */
         .jumbotron {
             background-color: #007bff;
             background-image: "C:\Users\Coditas\source\JobSearchApp\JobSearch\Web\wwwroot\jobimage.png" color: ;
@@ -64,15 +56,6 @@
                     background-color: #138496;
                 }
 
-       /*  
-        .container {
-            max-width: 950px;
-            margin: 0 auto;
-            padding: 20px;
-        }*/
-            
-
-        /* Footer */
         .footer {
             background-color: #333;
             color: #fff;
@@ -89,10 +72,8 @@
     <div class="navbar">
         <div class="container">
             <a href="#">Home</a>
-            <a href="#">Jobs</a>
-            <a href="#">Applications</a>
-            <a href="#">Profile</a>
-            <a href="#">Login</a>
+                        
+            <a asp-controller="Account" asp-action="Login">Login</a>
         </div>
     </div>
 
@@ -100,14 +81,8 @@
         <div class="container">
             <h1>Welcome to our Online Job Portal</h1>
             <p>Find your dream job today!</p>
-            <a href="#" class="btn">Browse Jobs</a>
         </div>
     </div>
-
-    @* <div class="container">
-        <h2>Featured Jobs</h2>
-        <!-- Add featured job listings here -->
-    </div> *@
 
     <div class="footer">
         <div class="container">

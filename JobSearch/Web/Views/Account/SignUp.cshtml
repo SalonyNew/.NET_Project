@@ -1,90 +1,195 @@
 ﻿@model Services.ViewModels.Signup;
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
-    <h1>Signup</h1>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Signup</title>
+        <style>
+            
+            .container-fluid {
+                background-color: #fff;
+                padding: 0.5rem;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                max-width: 500px;
+                display: block;
+                flex-direction: row;
+                
+            }
 
-    <h4>UserCredential</h4>
-    <hr />
+           
+            .left-side {
+                flex: 1;
+                padding-right: 1rem;
+            }
 
-    <div class="container-fluid bg-light p-3 rounded">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="card border-primary">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Signup</h5>
-                        <form asp-controller="Account" asp-action="Signup">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="form-group">
-                                <label asp-for="Name" class="control-label">Name:</label>
-                                <input asp-for="Name" class="form-control" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Email" class="control-label">Email:</label>
-                                <input asp-for="Email" class="form-control" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Age" class="control-label">Age:</label>
-                                <input asp-for="Age" class="form-control" />
-                                <span asp-validation-for="Age" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="PhoneNo" class="control-label">Phone Number:</label>
-                                <input asp-for="PhoneNo" class="form-control" />
-                                <span asp-validation-for="PhoneNo" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Dob" class="control-label">Date of Birth:</label>
-                                <input asp-for="Dob" class="form-control" />
-                                <span asp-validation-for="Dob" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Gender" class="control-label">Gender:</label>
-                                <select asp-for="Gender" class="form-control">
-                                    <option value="">Select Gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Others">Others</option>
-                                </select>
-                                <span asp-validation-for="Gender" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Role" class="control-label">Role:</label>
-                                <select asp-for="Role" class="form-control">
-                                    <option value="">Select Role</option>
-                                    <option value="Candidate">Candidate</option>
-                                    <option value="Recruiter">Recruiter</option>
-                                    <option value="Recruiter">Admin</option>
-                                </select>
-                                <span asp-validation-for="Role" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Password" class="control-label">Password:</label>
-                                <input asp-for="Password" type="password" class="form-control" />
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="ConfirmPassword" class="control-label">Confirm Password:</label>
-                                <input asp-for="ConfirmPassword" type="password" class="form-control" />
-                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                            </div>
+            
+            .right-side {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
-                            <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary">Signup</button>
-                            </div>
-                        </form>
+            
+            .card-title {
+                font-size: 1.5rem;
+                text-align: center;
+                margin-bottom: 1.5rem;
+                color: #007bff;
+               
+            }
+
+           
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            
+            .form-control {
+                width: 100%;
+                padding: 0.5rem;
+                border: 1px solid #ced4da;
+                border-radius: 0.25rem;
+                transition: border-color 0.3s;
+                box-sizing: border-box;
+            }
+
+           
+            .form-check-input {
+                margin-right: 0.5rem;
+            }
+
+            
+            .btn {
+                color: #fff;
+                background-color: #007bff;
+                border: none;
+                border-radius: 5px;
+                padding: 0.75rem 1rem;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                width: 100%;
+            }
+            
+                .btn:hover {
+                    background-color: #0056b3;
+                }
+
+            
+            .mt-3 {
+                margin-top: 1.5rem;
+            }
+
+            
+            a {
+                color: #007bff;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+                
+                a:hover {
+                    color: #0056b3;
+                }
+
+           
+            .text-danger {
+                color: red;
+            }
+            
+            .login-image {
+                width: 100%;
+                height: auto;
+                display: block;
+                margin-top: 20px;
+            }
+
+            .mt-3 {
+                margin-top: 1.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid bg-light p-3 rounded">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h5 class="card-title text-center mb-4">Signup</h5>
+                            <form asp-controller="Account" asp-action="Signup">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Name" class="control-label">Name:</label>
+                                    <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Email" class="control-label">Email:</label>
+                                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Age" class="control-label">Age:</label>
+                                    <input asp-for="Age" class="form-control" placeholder="Enter your age" />
+                                    <span asp-validation-for="Age" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PhoneNo" class="control-label">Phone Number:</label>
+                                    <input asp-for="PhoneNo" class="form-control" placeholder="Enter your phone number" />
+                                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Dob" class="control-label">Date of Birth:</label>
+                                    <input asp-for="Dob" class="form-control" placeholder="Enter your date of birth" />
+                                    <span asp-validation-for="Dob" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Gender" class="control-label">Gender:</label>
+                                    <select asp-for="Gender" class="form-control">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                    <span asp-validation-for="Gender" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Role" class="control-label">Role:</label>
+                                    <select asp-for="Role" class="form-control">
+                                        <option value="">Select Role</option>
+                                        <option value="Candidate">Candidate</option>
+                                        <option value="Recruiter">Recruiter</option>
+                                        <option value="Admin">Admin</option>
+                                    </select>
+                                    <span asp-validation-for="Role" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password" class="control-label">Password:</label>
+                                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ConfirmPassword" class="control-label">Confirm Password:</label>
+                                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" />
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-primary">Signup</button>
+                                </div>
+                                <div class="container mt-3">
+                                    <a asp-action="LogIn" asp-controller="Account">Back to Login</a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="container mt-3">
-        <a asp-action="Index">Back to List</a>
-    </div>
-
+    </body>
+    </html>
 
 }

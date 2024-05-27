@@ -9,11 +9,11 @@ public partial class Interview
 
     public Guid ApplicationId { get; set; }
 
-    public DateTime? InterviewDate { get; set; }
+    public DateTime InterviewDate { get; set; }
+    public TimeOnly Time {  get; set; }
 
-    public string? Status { get; set; }
 
-    public string? Notes { get; set; }
+    public string Location { get; set; }
 
     public virtual Application Application { get; set; } = null!;
 }

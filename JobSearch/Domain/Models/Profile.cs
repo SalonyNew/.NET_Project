@@ -17,11 +17,5 @@ public partial class Profile
 
     public string? Resume { get; set; } = null!;
 
-    public string? CompanyName { get; set; }
-
-    public string? CompanyDescription { get; set; }
-
-    public string? Mission { get; set; }
-
     public virtual UserCredential User { get; set; } = null!;
 }

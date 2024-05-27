@@ -3,6 +3,7 @@ using Domain.Models;
 using System.Linq.Expressions;
 using Services.ViewModels;
 using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 
 namespace Web.Controllers
@@ -26,43 +27,54 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Retrieve the UserCredential for the current user
+                if (!User.Identity!.IsAuthenticated)
+                {
+                    ModelState.AddModelError(string.Empty, "User is not Authenticated.");
+                    return View(model);
+                }
+
+                string jwtToken = HttpContext.Request.Cookies["jwtToken"]!;
+                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+                JwtSecurityToken parsedToken = tokenHandler.ReadJwtToken(jwtToken);
+
                 var userId = GetUserIdFromLoggedInUser();
 
 
-                if (!string.IsNullOrEmpty(userId))
+                if (Guid.TryParse(userId, out Guid userGuid))
                 {
-                    if (Guid.TryParse(userId, out Guid userGuid))
+
+                    string userRole = parsedToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value!;
                     {
-                        var profile = new Profile
+
+                        if (userRole == "Candidate")
                         {
-                            // Set the UserId obtained from the logged-in user
-                            
-                            Education = model.Education,
-                            WorkExperience = model.WorkExperience,
-                            Skills = model.Skills,
-                            Resume = model.Resume,
-                            CompanyName = model.CompanyName,
-                            CompanyDescription = model.CompanyDescription,
-                            Mission = model.Mission,
-                            UserId = Guid.Parse(userId)
-                        };
+                            var profile = new Profile
+                            {
 
-                        _context.Profiles.Add(profile);
-                        _context.SaveChanges();
+                                Education = model.Education,
+                                WorkExperience = model.WorkExperience,
+                                Skills = model.Skills,
+                                Resume = model.Resume,
+                                UserId = Guid.Parse(userId)
+                            };
 
-                        return RedirectToAction("Dashboard");
-                    }
-                    else
-                    {
-                        // Handle case where UserId cannot be parsed to Guid
-                        ModelState.AddModelError(string.Empty, "Invalid UserId format.");
-                        return View(model);
+                            _context.Profiles.Add(profile);
+                            _context.SaveChanges();
+
+                            return RedirectToAction("Dashboard");
+                        }
+                        else
+                        {
+
+                            ModelState.AddModelError(string.Empty, "Invalid UserId format.");
+                            return View(model);
+                        }
                     }
                 }
+
                 else
                 {
-                    // Handle case where UserId is null or empty
+
                     ModelState.AddModelError(string.Empty, "UserId not available.");
                     return View(model);
                 }
@@ -72,9 +84,10 @@ namespace Web.Controllers
         }
         private string GetUserIdFromLoggedInUser()
         {
-             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            return userIdClaim?.Value; ;
-        }
+            var UserData = User.FindFirst(ClaimTypes.Email)?.Value;
+            var UserId = _context.UserCredentials.FirstOrDefault(u => u.Email == UserData)!.UserId.ToString();
+            return UserId;
 
+        }
     }
 }

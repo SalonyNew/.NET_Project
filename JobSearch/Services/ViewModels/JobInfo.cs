@@ -9,21 +9,26 @@ namespace Services.ViewModels
 {
     public class JobInfo
     {
-        
-        [Required]
+        public Guid JobPostId { get; set; }
+
+        [Required(ErrorMessage = "Job title is required.")]
         public string JobTitle { get; set; } = null!;
-        [Required]
+
+        [Required(ErrorMessage = "Job description is required.")]
         public string? JobDescription { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Qualification required is required.")]
         public string? QualificationRequired { get; set; }
 
         public DateTime Deadline { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Location is required.")]
         public string Location { get; set; } = null!;
 
+        [Required(ErrorMessage = "Industry is required.")]
         public string Industry { get; set; } = null!;
-        [Required]
-        public string Type { get; set; } = null!;
 
+        [Required(ErrorMessage = "Type is required.")]
+        public string Type { get; set; } = null!;
     }
 }

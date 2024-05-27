@@ -10,6 +10,7 @@ using System.Security.Cryptography.Xml;
 using Azure.Identity;
 using Services;
 using System.Diagnostics.Eventing.Reader;
+using System.Security.Claims;
 
 
 
@@ -76,20 +77,15 @@ namespace Web.Controllers
                     _context.UserCredentials.Add(user);
                     _context.SaveChanges();
 
-                    return RedirectToAction("SignupSuccess");
+                    return RedirectToAction("Dashboard");
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while processing your request. Please try again later.");
             }
 
             return View(model);
-        }
-        [HttpGet]
-        public IActionResult SignupSuccess()
-        {
-            return RedirectToAction("Dashboard");
         }
 
 
@@ -99,19 +95,31 @@ namespace Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult LogIn( Login model)
+        public IActionResult LogIn(Login model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     var user = _context.UserCredentials
-                        .Where(u => u.Email == model.Email).FirstOrDefault();
+                        .Where(u => u.Email == model.Email)
+                        .FirstOrDefault();
 
-                        var passwordHash = _encryption.Authencrypt(model.Password, _config["EncryptionKey"]!, user!.PasswordSalt);
-                    if (user != null && user.PasswordHash == passwordHash)
+                    if (user == null)
                     {
-                        var RoleName = _context.Roles.Where(role => role.RoleId == user.RoleId).Select(role => role.Name).FirstOrDefault();
+                        ModelState.AddModelError(string.Empty, "Invalid email or username.");
+                        return View(model);
+                    }
+
+                    var passwordHash = _encryption.Authencrypt(model.Password, _config["EncryptionKey"]!, user.PasswordSalt);
+
+                    if (user.PasswordHash == passwordHash)
+                    {
+                        var RoleName = _context.Roles
+                            .Where(role => role.RoleId == user.RoleId)
+                            .Select(role => role.Name)
+                            .FirstOrDefault();
+
                         var token = _helper.GenerateJwtToken(user.Email, RoleName!.ToString());
 
                         var cookieOptions = new CookieOptions
@@ -126,18 +134,19 @@ namespace Web.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                        ModelState.AddModelError(string.Empty, "Invalid password.");
                         return View(model);
                     }
                 }
-
             }
-            catch (Exception )
+            catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while processing your request. Please try again later.");               
+                ModelState.AddModelError(string.Empty, "An error occurred while processing your request. Please try again later.");
             }
-            return View();
+
+            return View(model);
         }
+
         public IActionResult Logout()
         {
             return View();
@@ -145,6 +154,11 @@ namespace Web.Controllers
 
         public IActionResult Dashboard()
         {
+            // Fetch the user's role from the database or token
+            string userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value??"Candidate";
+
+            // Pass the role to the view
+            ViewData["UserRole"] = userRole;
             return View();
         }
 

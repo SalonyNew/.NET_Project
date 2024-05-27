@@ -1,0 +1,107 @@
+﻿@model Services.ViewModels.ApplicationViewModel;
+
+
+@{
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Job Application Form</title>
+        <style>
+            /* Your existing CSS styles here */
+
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+            }
+
+            .container {
+                width: 80%;
+                margin: 20px auto;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            label {
+                font-weight: bold;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="date"],
+            textarea {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+                margin-top: 5px;
+                margin-bottom: 10px;
+            }
+
+            textarea {
+                height: 100px;
+            }
+
+            input[type="submit"] {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 1em;
+                transition: background-color 0.3s;
+            }
+
+                input[type="submit"]:hover {
+                    background-color: #0056b3;
+                }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Job Application Form</h2>
+            <form action="#" method="POST">
+                <input type="hidden" id="JobPostId" name="JobPostId" value="@ViewBag.JobPostId" />
+                <div class="form-group">
+                    <label for="Name">Name:</label>
+                    <input type="text" id="Name" name="Name">
+                </div>
+                <div class="form-group">
+                    <label for="PhoneNo">Phone Number:</label>
+                    <input type="text" id="PhoneNo" name="PhoneNo">
+                </div>
+                <div class="form-group">
+                    <label for="Email">Email:</label>
+                    <input type="email" id="Email" name="Email">
+                </div>
+                <div class="form-group">
+                    <label for="Education">Education:</label>
+                    <input type="text" id="Education" name="Education">
+                </div>
+                <div class="form-group">
+                    <label for="Resume">Resume:</label>
+                    <input type="file" id="Resume" name="Resume">
+                </div>
+                <div class="form-group">
+                    <label for="ApplicationDate">Application Date:</label>
+                    <input type="date" id="ApplicationDate" name="ApplicationDate">
+                </div>
+                <input type="submit" value="Submit Application">
+            </form>
+        </div>
+    </body>
+    </html>
+}
+
+
+
+

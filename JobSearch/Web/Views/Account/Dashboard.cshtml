@@ -1,5 +1,6 @@
-﻿@{
-    Layout = null;
+﻿
+@{
+    var userRole = ViewData["UserRole"] as string;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -286,11 +287,11 @@
 
     <script>
         function openNavbar() {
-            document.getElementById("sideNavigationBar").style.width = "50%";
+            document.getElementById("sideNavigationBar").style.width = "250px";
         }
 
         function closeNavbar() {
-            document.getElementById("sideNavigationBar").style.width = "0%";
+            document.getElementById("sideNavigationBar").style.width = "0";
         }
     </script>
 </head>
@@ -301,11 +302,21 @@
 
         <div class="navbar">
             <ul>
-                <li><a href="#Home">Home</a></li>
-                <li><a asp-controller="Job" asp-action="JobPost">JobPost</a></li>
-                @* <li><a asp-controller="Profile" asp-action="Profile">Profile</a></li> *@
-                <li><a href="#">About</a></li>
-                <li><a asp-controller="Account" asp-action="SignUp">SignUp</a></li>
+                <li><a asp-controller="Dashboard" asp-action="Home">Home</a></li>
+
+                @if (userRole == "Admin" || userRole == "Recruiter")
+                {
+                    <li><a asp-controller="Job" asp-action="JobPost">JobPost</a></li>
+                    <li> <a asp-controller="Recruiter" asp-action="ViewApplication">Applications</a></li>
+                }
+
+                @if (userRole == "Admin" || userRole == "Candidate" )
+                {
+                    <li><a asp-controller="Job" asp-action="JobList">JobList</a></li>
+                }
+
+                <li><a asp-controller="Profile" asp-action="Profile">Profile</a></li>
+                <li><a asp-controller="Home" asp-action="Index">Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -313,10 +324,22 @@
     <div class="sideNavigationBar" id="sideNavigationBar">
         <a href="#" class="closeButton" onclick="closeNavbar()">&#x274C;</a>
         <a href="#">Home</a>
-        <a asp-controller="Job" asp-action="JobPost">JobPost</a>
-        @* <a asp-controller="Profile" asp-action="Profile">Profile</a> *@
-        <a asp-controller="Account" asp-action="SignUp">SignUp</a>
+
+        @if (userRole == "Admin" || userRole == "Recruiter")
+        {
+            <a asp-controller="Job" asp-action="JobPost">JobPost</a>
+            <a asp-controller="Recruiter" asp-action="ViewApplication">Applications</a>
+        }
+
+        @if (userRole == "Admin" || userRole == "Candidate" )
+        {
+            <a asp-controller="Job" asp-action="JobList">JobList</a>
+        }
+
+        <a asp-controller="Profile" asp-action="Profile">Profile</a>
+        <a asp-controller="Home" asp-action="Index">Logout</a>
     </div>
+
     <div class="line" id="Home">
         <div class="side1">
             <h1>Find your dream job with us !!!</h1>

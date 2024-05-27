@@ -16,11 +16,9 @@ namespace Services.ViewModels
 
         public string? Resume { get; set; } 
 
-        public string? CompanyName { get; set; }
+        
 
-        public string? CompanyDescription { get; set; }
-
-        public string? Mission { get; set; }
+        
 
 
     }

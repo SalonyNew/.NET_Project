@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FjmygWmCVB8FAyauz+bf8YwGpiHv+HkuvheIUZY2s5Y=",
+  "Hash": "GdAoF6tU8C3EC+lfY/AG5PB0m63nsWV8IoAWiWFGzFg=",
   "Source": "Web",
   "BasePath": "_content/Web",
   "Mode": "Default",
@@ -1231,6 +1231,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Login1.png"
+    },
+    {
+      "Identity": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\portal2.jpg",
+      "SourceId": "Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\",
+      "BasePath": "_content/Web",
+      "RelativePath": "portal2.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\portal2.jpg"
     }
   ]
 }

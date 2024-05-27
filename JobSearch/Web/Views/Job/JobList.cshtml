@@ -1,0 +1,168 @@
+﻿@model IEnumerable<Services.ViewModels.JobInfo>;
+@{
+    ViewData["Title"] = "Job Listings";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <style>
+        /* Your existing CSS styles here */
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .navbar .nav-links {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+                .navbar .nav-links li {
+                    display: inline;
+                    margin-right: 20px;
+                }
+
+                    .navbar .nav-links li:last-child {
+                        margin-right: 0; /* Remove margin-right for the last item */
+                    }
+
+                        .navbar .nav-links li:last-child a {
+                            margin-right:auto ; /* Push the last item to the right */
+                        }
+
+                    .navbar .nav-links li a {
+                        color: #fff;
+                        text-decoration: none;
+                        font-size: 1.1em;
+                    }
+
+                        .navbar .nav-links li a:hover {
+                            text-decoration: underline;
+                        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .job-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s;
+        }
+
+            .job-card:hover {
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .job-card h5 {
+                margin: 0;
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+
+            .job-card h6 {
+                margin: 0;
+                font-size: 1em;
+                color: #666;
+                margin-bottom: 15px;
+            }
+
+            .job-card p {
+                margin: 0;
+                color: #333;
+            }
+
+                .job-card p + p {
+                    margin-top: 10px;
+                }
+
+            .job-card button {
+                margin-top: 20px;
+                padding: 10px 15px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                text-align: center;
+                font-size: 1em;
+                transition: background-color 0.3s, transform 0.3s;
+            }
+
+                .job-card button:hover {
+                    background-color: #0056b3;
+                    transform: translateY(-2px);
+                }
+
+        .logo {
+            color: #fff;
+            font-size: 1.5em;
+            text-decoration: none;
+        }
+
+        .logo {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .apply-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.3s;
+            text-decoration: none; /* Remove underline */
+        }
+
+            .apply-button:hover {
+                background-color: #0056b3;
+                transform: translateY(-2px);
+            }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul class="nav-links">
+            <li><a asp-controller="Account" asp-action="Dashboard">Home</a></li>
+            
+        </ul>
+    </div>
+    <div class="container">
+        <h2>Job Listings</h2>
+        <div class="job-listings">
+            @foreach (var job in Model)
+            {
+                <div class="job-card">
+                    <h5>@job.JobTitle</h5>
+                    <h6>@job.Location</h6>
+                    <p><strong>Description:</strong> @job.JobDescription</p>
+                    <p><strong>Qualification Required:</strong> @job.QualificationRequired</p>
+                    <p><strong>Industry:</strong> @job.Industry</p>
+                    <p><strong>Type:</strong> @job.Type</p>
+                    <p><strong>Deadline:</strong> @job.Deadline.ToString("MM/dd/yyyy")</p>
+                    <a href="@Url.Action("Application", "Application", new { jobId = job.JobPostId })" class="apply-button">Apply Now</a>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -11,13 +11,18 @@ public partial class Application
 
     public Guid UserId { get; set; }
 
-    public byte[]? Resume { get; set; }
-
-    public byte[]? CoverLetter { get; set; }
+    public string? Resume { get; set; }
 
     public DateTime ApplicationDate { get; set; }
 
-    public string? Status { get; set; }
+   
+    public string? Name { get; set; }
+    public string? PhoneNo { get; set; }
+    public string? Email {  get; set; }
+    public string? Education { get; set; }
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime UpdatedOn { get; set; }
 
     public virtual ICollection<Interview> Interviews { get; set; } = new List<Interview>();
 

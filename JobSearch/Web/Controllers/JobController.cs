@@ -21,14 +21,14 @@ namespace Web.Controllers
         }
         [HttpGet]
         [NoCache]
-        [Authorize]
+        [Authorize(Roles = "Recruiter")]
         public IActionResult JobPost()
         {
             return View();
         }
         [HttpPost]
         [NoCache]
-        [Authorize]
+        [Authorize(Roles = "Admin, Recruiter")]
         public IActionResult JobPost(JobInfo model)
         {
             if (ModelState.IsValid)
@@ -38,14 +38,11 @@ namespace Web.Controllers
                     ModelState.AddModelError(string.Empty, "User is not Authenticated.");
                     return View(model);
                 }
-                // Fetch the JWT token from cookies (if needed for additional purposes)
+                
                 string jwtToken = HttpContext.Request.Cookies["jwtToken"]!;
                 JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
                 JwtSecurityToken parsedToken = tokenHandler.ReadJwtToken(jwtToken);
-
-                
-                
-                
+               
                 string userId = GetUserIdFromLoggedInUser();
 
                 if (Guid.TryParse(userId, out Guid userGuid))
@@ -66,6 +63,7 @@ namespace Web.Controllers
                             Industry = model.Industry,
                             Type = model.Type,
                             UserId = userGuid 
+                            
                         };
 
                         _context.JobPosts.Add(jobInfo);
@@ -76,7 +74,7 @@ namespace Web.Controllers
                     {
                        
                         ModelState.AddModelError(string.Empty, "You do not have permission to post a job.");
-                        return Forbid(); // Deny access
+                        return Forbid(); 
                     }
                 }
                 else
@@ -89,14 +87,32 @@ namespace Web.Controllers
             return View(model);
         }
 
-        private string GetUserIdFromLoggedInUser()
+        public string GetUserIdFromLoggedInUser()
         {
             var UserData= User.FindFirst(ClaimTypes.Email)?.Value;
             var UserId = _context.UserCredentials.FirstOrDefault(u => u.Email == UserData)!.UserId.ToString();
             return UserId;
         }
 
+     
+        [Authorize(Roles = "Candidate")]
+        public IActionResult JobList(JobInfo model)
+        {
+            
+            var jobPosts = _context.JobPosts.Select(job => new JobInfo
+            {
+                JobPostId= job.JobPostId,
+                JobTitle = job.JobTitle,
+                JobDescription = job.JobDescription,
+                QualificationRequired = job.QualificationRequired,
+                Deadline = job.Deadline,
+                Location = job.Location,
+                Industry = job.Industry,
+                Type = job.Type
+            }).ToList();
 
+            return View(jobPosts);           
+        }
 
 
     }

@@ -9,8 +9,6 @@ namespace Services.ViewModels
 {
     public class Login
     {
-        [Required(ErrorMessage = "Name is required.")]
-        public string Name { get; set; } = null!;
 
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email address.")]

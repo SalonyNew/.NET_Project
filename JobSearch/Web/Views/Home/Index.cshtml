@@ -5,29 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Job Portal</title>
     <style>
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        .navbar {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
         }
 
-            .navbar a {
-                color: #fff;
-                text-decoration: none;
-                margin-right: 20px;
-            }
         .jumbotron {
-            background-color: #007bff;
-            background-image: "C:\Users\Coditas\source\JobSearchApp\JobSearch\Web\wwwroot\jobimage.png" color: ;
-            padding: 200px ;
+            padding: 200px;
             text-align: center;
+            color: #fff;
+            background-size: cover;
+            background-position: center;
         }
 
             .jumbotron h1 {
@@ -41,52 +35,29 @@
             }
 
             .jumbotron .btn {
-                padding: 20px 20px;
-                background-color: #17a2b8;
+                padding: 15px 30px;
+                background-color: #0e3e8c;
                 border: none;
                 border-radius: 4px;
                 color: #fff;
                 text-decoration: none;
-                font-size: 1em;
+                font-size: 1.2em;
                 cursor: pointer;
                 transition: background-color 0.3s;
             }
 
                 .jumbotron .btn:hover {
-                    background-color: #138496;
+                    background-color: #071833;
                 }
-
-        .footer {
-            background-color: #333;
-            color: #fff;
-            padding: 5px 0;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
-        <div class="container">
-            <a href="#">Home</a>
-                        
-            <a asp-controller="Account" asp-action="Login">Login</a>
-        </div>
-    </div>
-
-    <div class="jumbotron">
+    <div class="jumbotron" style="background-image: url('\portal2.jpg')">
         <div class="container">
             <h1>Welcome to our Online Job Portal</h1>
             <p>Find your dream job today!</p>
-        </div>
-    </div>
-
-    <div class="footer">
-        <div class="container">
-            <p>&copy; 2024 Online Job Portal. All rights reserved.</p>
+            <a href="/Account/Login" class="btn">Get Started</a>
         </div>
     </div>
 

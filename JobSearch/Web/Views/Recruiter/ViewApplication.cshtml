@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Services.ViewModels.ApplicationViewModel>
+
+@{
+    ViewData["Title"] = "View Applications";
+}
+@{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Applications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+            table th, table td {
+                padding: 10px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            table th {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                transform: translateY(-2px);
+            }
+    </style>
+</head>
+<body >
+    <div class="container" >
+        <h2>Applications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone No</th>
+                    <th>Education</th>
+                    <th>Application Date</th>
+                    <th>Resume</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var app in Model)
+                {
+                    <tr>
+                        <td>@app.Name</td>
+                        <td>@app.Email</td>
+                        <td>@app.PhoneNo</td>
+                        <td>@app.Education</td>
+                        <td>@app.ApplicationDate.ToString("MM/dd/yyyy")</td>
+                        <td>
+                            <a href="@Url.Action("DownloadResume", "Recruiter", new { applicationId = app.ApplicationId })">Download</a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("ScheduleInterview", "Interview", new { applicationId = app.ApplicationId })" class="btn-primary">Schedule Interview</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+}

@@ -44,7 +44,7 @@ public partial class AppdbContext : DbContext
 
             entity.Property(e => e.ApplicationId).HasDefaultValueSql("(newid())");
             entity.Property(e => e.ApplicationDate).HasColumnType("datetime");
-            entity.Property(e => e.Status).HasMaxLength(50);
+            
 
             entity.HasOne(d => d.JobPost).WithMany(p => p.Applications)
                 .HasForeignKey(d => d.JobPostId)
@@ -102,7 +102,7 @@ public partial class AppdbContext : DbContext
 
             entity.Property(e => e.InterviewId).HasDefaultValueSql("(newid())");
             entity.Property(e => e.InterviewDate).HasColumnType("datetime");
-            entity.Property(e => e.Status).HasMaxLength(50);
+           
 
             entity.HasOne(d => d.Application).WithMany(p => p.Interviews)
                 .HasForeignKey(d => d.ApplicationId)

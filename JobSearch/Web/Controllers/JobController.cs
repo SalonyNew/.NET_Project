@@ -56,11 +56,11 @@ namespace Web.Controllers
                         var jobInfo = new JobPost
                         {
                             JobTitle = model.JobTitle,
+                            CompanyName = model.CompanyName,
                             JobDescription = model.JobDescription,
                             QualificationRequired = model.QualificationRequired,
                             Deadline = model.Deadline,
-                            Location = model.Location,
-                            Industry = model.Industry,
+                            Location = model.Location,                           
                             Type = model.Type,
                             UserId = userGuid 
                             
@@ -99,6 +99,7 @@ namespace Web.Controllers
         public IActionResult JobList(JobInfo model)
         {
             
+
             var jobPosts = _context.JobPosts.Select(job => new JobInfo
             {
                 JobPostId= job.JobPostId,
@@ -107,9 +108,10 @@ namespace Web.Controllers
                 QualificationRequired = job.QualificationRequired,
                 Deadline = job.Deadline,
                 Location = job.Location,
-                Industry = job.Industry,
+                CompanyName = job.CompanyName,
                 Type = job.Type
             }).ToList();
+            
 
             return View(jobPosts);           
         }

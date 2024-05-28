@@ -86,6 +86,58 @@ namespace Web.Controllers
 
             return View(model);
         }
+        [HttpGet]
+        [Authorize(Roles = "Candidate")]
+        public IActionResult EditApplication(Guid applicationId)
+        {
+            var application = _context.Applications.FirstOrDefault(a => a.ApplicationId == applicationId);
+            if (application == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ApplicationViewModel
+            {
+                ApplicationId = application.ApplicationId,
+                Name = application.Name,
+                Email = application.Email,
+                PhoneNo = application.PhoneNo,
+                Education = application.Education,
+                Resume = application.Resume,
+                ApplicationDate = application.ApplicationDate
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Candidate")]
+        public IActionResult EditApplication(ApplicationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var application = _context.Applications.FirstOrDefault(a => a.ApplicationId == model.ApplicationId);
+                if (application == null)
+                {
+                    return NotFound();
+                }
+
+                application.Name = model.Name;
+                application.Email = model.Email;
+                application.PhoneNo = model.PhoneNo;
+                application.Education = model.Education;
+                application.Resume = model.Resume;
+                application.ApplicationDate = model.ApplicationDate;
+                application.UpdatedOn = DateTime.Now;
+
+                _context.Applications.Update(application);
+                _context.SaveChanges();
+
+                return RedirectToAction("Dashboard", "Account");
+            }
+
+            return View(model);
+        }
 
         private string GetUserIdFromLoggedInUser()
         {
@@ -93,10 +145,8 @@ namespace Web.Controllers
             var userId = _context.UserCredentials.FirstOrDefault(u => u.Email == userEmail)?.UserId.ToString();
             return userId!;
         }
-
-
-        
-
     }
+
 }
+
 

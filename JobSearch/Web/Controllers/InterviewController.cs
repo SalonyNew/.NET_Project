@@ -21,39 +21,40 @@ namespace Web.Controllers
         [Authorize(Roles = "Recruiter")]
         public IActionResult ScheduleInterview(Guid ApplicationId)
         {
+            var application = _context.Applications.FirstOrDefault(a => a.ApplicationId == ApplicationId);
+            if (application == null)
+            {
+                return NotFound();
+            }
 
-            ViewBag.ApplicationId = ApplicationId;
-            return View(new InterviewViewModel());
+            var model = new InterviewViewModel
+            {
+                ApplicationId = application.ApplicationId,
+                ApplicantName = application.Name 
+            };
+
+            return View(model);
         }
 
-
         [HttpPost]
-        [NoCache]
         [Authorize(Roles = "Recruiter")]
-        public IActionResult ScheduleInterview(InterviewViewModel model, Guid ApplicationId)
+        public IActionResult ScheduleInterview(InterviewViewModel model)
         {
             if (ModelState.IsValid)
             {
-                
-               
-                    var interview = new Interview
-                    {
-                        ApplicationId = ApplicationId,
-                        InterviewDate = model.InterviewDate,
-                        Time = model.Time,
-                        Location = model.Location,
-                       
-                    };
-                    _context.Interviews.Add(interview);
-                    _context.SaveChanges();
-                return RedirectToAction("Dashboard");
-                }
-                else
+                var interview = new Interview
                 {
-                    ModelState.AddModelError(string.Empty, "Application not found.");
-                }
-            
-           
+                    ApplicationId = model.ApplicationId,
+                    InterviewDate = model.InterviewDate,
+                    Time = model.Time,
+                    Location = model.Location,
+                };
+                _context.Interviews.Add(interview);
+                _context.SaveChanges();
+
+                return RedirectToAction("Dashboard");
+            }
+
             return View(model);
         }
     }

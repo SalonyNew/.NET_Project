@@ -7,9 +7,7 @@
     <html>
     <head>
         <style>
-            /* wwwroot/css/site.css */
-
-            /* Style for form container */
+           
             .form-container {
                 max-width: 400px;
                 margin: 0 auto;
@@ -18,13 +16,13 @@
                 border-radius: 5px;
             }
 
-            /* Style for form labels */
+            
             label {
                 display: block;
                 margin-bottom: 5px;
             }
 
-            /* Style for form input fields */
+            
             .form-control {
                 width: 100%;
                 padding: 8px;
@@ -34,7 +32,7 @@
                 box-sizing: border-box;
             }
 
-            /* Style for form submit button */
+            
             .btn-primary {
                 background-color: #007bff;
                 color: #fff;
@@ -48,7 +46,7 @@
                     background-color: #0056b3;
                 }
 
-            /* Style for validation error messages */
+            
             .text-danger {
                 color: #dc3545;
                 font-size: 0.8em;
@@ -62,6 +60,10 @@
 
         <form asp-controller="Interview" asp-action="ScheduleInterview" method="post">
             <input type="hidden" id="ApplicationId" name="ApplicationId" value="@ViewBag.ApplicationId" />
+            <div class="form-group">
+                <label>Applicant Name</label>
+                <input type="text" class="form-control" value="@Model.ApplicantName" readonly />
+            </div>
             <div class="form-group">
                 <label asp-for="InterviewDate">Interview Date</label>
                 <input asp-for="InterviewDate" class="form-control" type="date" />

@@ -19,7 +19,7 @@ public partial class JobPost
 
     public string Location { get; set; } = null!;
 
-    public string Industry { get; set; } = null!;
+    public string? CompanyName { get; set; } 
 
     public string Type { get; set; } = null!;
 

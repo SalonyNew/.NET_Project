@@ -153,10 +153,10 @@
             {
                 <div class="job-card">
                     <h5>@job.JobTitle</h5>
+                    <p><strong>Company Name:</strong> @job.CompanyName</p>
                     <h6>@job.Location</h6>
                     <p><strong>Description:</strong> @job.JobDescription</p>
-                    <p><strong>Qualification Required:</strong> @job.QualificationRequired</p>
-                    <p><strong>Industry:</strong> @job.Industry</p>
+                    <p><strong>Qualification Required:</strong> @job.QualificationRequired</p>                   
                     <p><strong>Type:</strong> @job.Type</p>
                     <p><strong>Deadline:</strong> @job.Deadline.ToString("MM/dd/yyyy")</p>
                     <a href="@Url.Action("Application", "Application", new { jobId = job.JobPostId })" class="apply-button">Apply Now</a>

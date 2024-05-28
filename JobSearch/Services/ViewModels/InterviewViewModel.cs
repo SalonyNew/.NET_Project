@@ -9,6 +9,8 @@ namespace Services.ViewModels
     public class InterviewViewModel
     {
         public Guid InterviewId { get; set; }
+        public Guid ApplicationId { get; set; }
+
 
         public DateTime InterviewDate { get; set; }
         public TimeOnly Time { get; set; }
@@ -16,6 +18,6 @@ namespace Services.ViewModels
 
         public string? Location {get; set; }
 
-       
+        public string? ApplicantName { get; set; }
     }
 }

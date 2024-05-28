@@ -17,6 +17,7 @@ namespace Services.ViewModels
         public string? Resume { get; set; }
         public DateTime ApplicationDate { get; set; }
 
+
        
     }
 }

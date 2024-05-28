@@ -26,9 +26,11 @@ namespace Services.ViewModels
         public string Location { get; set; } = null!;
 
         [Required(ErrorMessage = "Industry is required.")]
-        public string Industry { get; set; } = null!;
+        public string? CompanyName { get; set; } 
 
         [Required(ErrorMessage = "Type is required.")]
         public string Type { get; set; } = null!;
+        public Guid? ApplicationId { get; set; }
+        public bool UserHasApplied { get; set; }
     }
 }

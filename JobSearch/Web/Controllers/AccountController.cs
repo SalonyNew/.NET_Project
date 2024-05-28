@@ -11,6 +11,9 @@ using Azure.Identity;
 using Services;
 using System.Diagnostics.Eventing.Reader;
 using System.Security.Claims;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 
 
@@ -149,13 +152,15 @@ namespace Web.Controllers
 
         public IActionResult Logout()
         {
-            return View();
+            Response.Cookies.Delete("jwtToken");
+            return RedirectToAction("Index", "Home");
+           
         }
 
         public IActionResult Dashboard()
         {
-            // Fetch the user's role from the database or token
-            string userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value??"Candidate";
+
+            string userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value ;
 
             // Pass the role to the view
             ViewData["UserRole"] = userRole;

@@ -52,6 +52,24 @@ if (!app.Environment.IsDevelopment())
     
     app.UseHsts();
 }
+app.Use(async (context, next) =>
+{
+    await next();
+    if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
+    {
+        if (context.Request.Path.StartsWithSegments("/api"))
+        {
+            // For API requests, return the unauthorized message
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            await context.Response.WriteAsync("Please log in to access this resource.");
+        }
+        else
+        {
+            string loginUrl = $"/Account/LogIn?returnUrl={context.Request.Path.Value}&message=Please log in to access this resource.";
+            context.Response.Redirect(loginUrl);
+        }
+    }
+});
 
 app.Use(async (context, next) =>
 {

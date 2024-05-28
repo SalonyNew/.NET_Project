@@ -94,7 +94,7 @@
                         <td>@app.Education</td>
                         <td>@app.ApplicationDate.ToString("MM/dd/yyyy")</td>
                         <td>
-                            <a href="@Url.Action("DownloadResume", "Recruiter", new { applicationId = app.ApplicationId })">Download</a>
+                            <a href="@Url.Action("DownloadResume", "Recruiter", new { applicationId = app.ApplicationId })">Resume</a>
                         </td>
                         <td>
                             <a href="@Url.Action("ScheduleInterview", "Interview", new { applicationId = app.ApplicationId })" class="btn-primary">Schedule Interview</a>

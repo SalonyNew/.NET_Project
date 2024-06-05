@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using Services.ViewModels;
+using System;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Web.Controllers
@@ -18,36 +19,38 @@ namespace Web.Controllers
 
 
         [HttpGet]
+        [NoCache]
         [Authorize(Roles = "Recruiter")]
-        public IActionResult ScheduleInterview(Guid ApplicationId)
+        public IActionResult ScheduleInterview(Guid applicationid)
         {
-            var application = _context.Applications.FirstOrDefault(a => a.ApplicationId == ApplicationId);
-            if (application == null)
-            {
-                return NotFound();
-            }
-
-            var model = new InterviewViewModel
-            {
-                ApplicationId = application.ApplicationId,
-                ApplicantName = application.Name 
-            };
-
-            return View(model);
+            var applicationDetail = _context.Applications.Where(application => application.ApplicationId == applicationid).FirstOrDefault();
+                var interviewModel = new InterviewViewModel
+                {
+                    ApplicationId = applicationid,
+                    ApplicantName = applicationDetail.Name,
+                    
+                };
+           
+           return View(interviewModel);
         }
 
         [HttpPost]
+        [NoCache]
         [Authorize(Roles = "Recruiter")]
         public IActionResult ScheduleInterview(InterviewViewModel model)
         {
             if (ModelState.IsValid)
             {
+                
                 var interview = new Interview
                 {
-                    ApplicationId = model.ApplicationId,
+                    ApplicationId=model.ApplicationId,
                     InterviewDate = model.InterviewDate,
                     Time = model.Time,
                     Location = model.Location,
+                    InterviewId = model.InterviewId
+                    
+
                 };
                 _context.Interviews.Add(interview);
                 _context.SaveChanges();

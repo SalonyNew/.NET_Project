@@ -65,7 +65,6 @@ namespace Web.Controllers
                             UserId = userGuid 
                             
                         };
-
                         _context.JobPosts.Add(jobInfo);
                         _context.SaveChanges();
                         return LocalRedirect("/Account/Dashboard");
@@ -98,7 +97,7 @@ namespace Web.Controllers
         [Authorize(Roles = "Candidate")]
         public IActionResult JobList(JobInfo model)
         {
-            
+            var userId = GetCurrentUserId();
 
             var jobPosts = _context.JobPosts.Select(job => new JobInfo
             {
@@ -109,14 +108,64 @@ namespace Web.Controllers
                 Deadline = job.Deadline,
                 Location = job.Location,
                 CompanyName = job.CompanyName,
-                Type = job.Type
+                Type = job.Type,
+                ApplicationId = _context.Applications
+                    .Where(application => application.JobPostId == job.JobPostId && application.UserId == Guid.Parse(userId))
+                    .Select(application => application.ApplicationId)
+                    .FirstOrDefault()
             }).ToList();
-            
 
             return View(jobPosts);           
         }
 
+        [HttpGet]
+        public IActionResult SearchJobs(string location, string type)
+        {
+            var userId = GetCurrentUserId(); 
 
+            var query = _context.JobPosts.AsQueryable();
+
+            
+            if (!string.IsNullOrEmpty(location))
+            {
+                query = query.Where(job => job.Location.Contains(location));
+            }
+
+            
+            if (!string.IsNullOrEmpty(type))
+            {
+                query = query.Where(job => job.Type.Contains(type));
+            }
+
+           
+            var jobPosts = query.Select(job => new JobInfo
+            {
+                JobPostId = job.JobPostId,
+                JobTitle = job.JobTitle,
+                JobDescription = job.JobDescription,
+                QualificationRequired = job.QualificationRequired,
+                Deadline = job.Deadline,
+                Location = job.Location,
+                CompanyName = job.CompanyName,
+                Type = job.Type,
+                ApplicationId = _context.Applications
+                    .Where(application => application.JobPostId == job.JobPostId && application.UserId == Guid.Parse(userId))
+                    .Select(application => application.ApplicationId)
+                    .FirstOrDefault()
+            }).ToList();
+
+            return View("JobList", jobPosts); 
+        }
+
+        
+        public string GetCurrentUserId()
+        {
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            var userId = _context.UserCredentials.FirstOrDefault(u => u.Email == userEmail)?.UserId.ToString();
+            return userId;
+        }
+        
     }
 }
+
 

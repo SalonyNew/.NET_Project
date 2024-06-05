@@ -82,7 +82,34 @@ namespace Web.Controllers
 
             return View(model);
         }
-        private string GetUserIdFromLoggedInUser()
+
+        [HttpGet]
+        public IActionResult ShowProfile()
+        {
+            var userId = GetUserIdFromLoggedInUser();
+
+            var userInfos = _context.Profiles
+         .Where(profile => profile.UserId == Guid.Parse(userId))
+         .Select(profile => new UserInfo
+         {
+             Education = profile.Education,
+             WorkExperience = profile.WorkExperience,
+             Skills = profile.Skills,
+             Resume = profile.Resume,
+             Name = _context.UserCredentials
+                 .Where(usercredential => usercredential.UserId == profile.UserId)
+                 .Select(usercredential => usercredential.Name)
+                 .FirstOrDefault(),
+             Email = _context.UserCredentials
+                 .Where(usercredential => usercredential.UserId == profile.UserId)
+                 .Select(usercredential => usercredential.Email)
+                 .FirstOrDefault()
+         });
+
+            return View(userInfos);
+        }
+
+        public string GetUserIdFromLoggedInUser()
         {
             var UserData = User.FindFirst(ClaimTypes.Email)?.Value;
             var UserId = _context.UserCredentials.FirstOrDefault(u => u.Email == UserData)!.UserId.ToString();

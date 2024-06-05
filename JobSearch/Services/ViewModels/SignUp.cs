@@ -38,6 +38,8 @@ namespace Services.ViewModels
         [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 20 characters.")]
+        [RegularExpression(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$",
+        ErrorMessage = "Password must be between 6 and 20 characters and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.")]
         public string Password { get; set; } = null!;
 
         [Required(ErrorMessage = "Confirm Password is required.")]
@@ -45,6 +47,7 @@ namespace Services.ViewModels
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Password and Confirm Password do not match.")]
         public string ConfirmPassword { get; set; } = null!;
+
     }
 
 }

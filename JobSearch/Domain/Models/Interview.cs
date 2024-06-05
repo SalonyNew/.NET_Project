@@ -13,7 +13,7 @@ public partial class Interview
     public TimeOnly Time {  get; set; }
 
 
-    public string Location { get; set; }
+    public string? Location { get; set; }
 
     public virtual Application Application { get; set; } = null!;
 }

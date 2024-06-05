@@ -1,4 +1,4 @@
-﻿@model Services.ViewModels.UserInfo;
+﻿@model Services.ViewModels.UserInfo
 
 @{
     <!DOCTYPE html>
@@ -8,15 +8,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Profile Form</title>
         <style>
-            <style >
             body {
                 font-family: Arial, sans-serif;
                 background-color: #f8f9fa;
+                margin: 0;
+                padding: 0;
             }
+
+            .navbar {
+                background-color: #333;
+                color: white;
+                padding: 10px 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .nav-links {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+            }
+
+                .nav-links li {
+                    margin-right: 20px;
+                }
+
+                    .nav-links li a {
+                        color: white;
+                        font-size: 18px;
+                        text-decoration: none;
+                    }
+
+                    .nav-links li:last-child {
+                        margin-right: 0;
+                    }
 
             .container {
                 max-width: 600px;
-                margin: 0 auto;
+                margin: 20px auto;
                 padding: 20px;
                 background-color: #fff;
                 border-radius: 10px;
@@ -65,11 +96,14 @@
                 button[type="submit"]:hover {
                     background-color: #0056b3;
                 }
-
-            
         </style>
     </head>
     <body>
+        <div class="navbar">
+            <ul class="nav-links">
+                <li><a asp-controller="Account" asp-action="Dashboard">Home</a></li>
+            </ul>
+        </div>
         <div class="container">
             <h2 class="text-center my-4">Profile Form</h2>
             <form method="post" asp-action="Profile" asp-controller="Profile">
@@ -94,5 +128,4 @@
         </div>
     </body>
     </html>
-
 }

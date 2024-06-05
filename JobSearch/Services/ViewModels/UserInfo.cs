@@ -8,6 +8,9 @@ namespace Services.ViewModels
 {
     public class UserInfo
     {
+        public Guid UserId { get; set; }
+        public string? Name { get; set; }
+        public string? Email { get; set; }
         public string? Education { get; set; }
 
         public string? WorkExperience { get; set; }

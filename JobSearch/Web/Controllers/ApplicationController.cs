@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Services;
 using Services.ViewModels;
+using System;
 using System.Data.SqlTypes;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -24,10 +26,22 @@ namespace Web.Controllers
         [NoCache]
         public IActionResult Application(Guid jobId)
         {
+            var userId = GetUserIdFromLoggedInUser();
+            if (Guid.TryParse(userId, out Guid userGuid))
+            {
+                var existingApplication = _context.Applications
+                    .FirstOrDefault(a => a.UserId == userGuid && a.JobPostId == jobId);
+
+                if (existingApplication != null)
+                {
+                    // Redirect to EditApplication if the application already exists
+                    return RedirectToAction("EditApplication", new { applicationId = existingApplication.ApplicationId });
+                }
+            }
+
             ViewBag.JobPostId = jobId;
             return View(new ApplicationViewModel());
         }
-
 
         [HttpPost]
         [Authorize(Roles = "Candidate")]
@@ -65,7 +79,7 @@ namespace Web.Controllers
                             CreatedAt = DateTime.Now,
                             UpdatedOn = DateTime.Now,
                             UserId = userGuid,
-                            JobPostId = jobId  
+                            JobPostId = jobId
                         };
 
                         _context.Applications.Add(application);
@@ -86,58 +100,163 @@ namespace Web.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Candidate")]
+        public IActionResult ApplicationIndex(Application model)
+        {
+            var userId = GetUserIdFromLoggedInUser();
+            if (Guid.TryParse(userId, out Guid userGuid))
+            {
+                var applications = _context.Applications
+                    .Where(a => a.UserId == userGuid)
+                    .ToList();
+                return View(applications);
+            }
+
+            return NotFound();
+        }
+
+
         [HttpGet]
         [Authorize(Roles = "Candidate")]
         public IActionResult EditApplication(Guid applicationId)
         {
-            var application = _context.Applications.FirstOrDefault(a => a.ApplicationId == applicationId);
-            if (application == null)
+            var userId = GetUserIdFromLoggedInUser();
+            if (Guid.TryParse(userId, out Guid userGuid))
             {
-                return NotFound();
-            }
+                var application = _context.Applications
+                    .FirstOrDefault(a => a.ApplicationId == applicationId && a.UserId == userGuid);
 
-            var model = new ApplicationViewModel
-            {
-                ApplicationId = application.ApplicationId,
-                Name = application.Name,
-                Email = application.Email,
-                PhoneNo = application.PhoneNo,
-                Education = application.Education,
-                Resume = application.Resume,
-                ApplicationDate = application.ApplicationDate
-            };
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Candidate")]
-        public IActionResult EditApplication(ApplicationViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var application = _context.Applications.FirstOrDefault(a => a.ApplicationId == model.ApplicationId);
                 if (application == null)
                 {
                     return NotFound();
                 }
 
-                application.Name = model.Name;
-                application.Email = model.Email;
-                application.PhoneNo = model.PhoneNo;
-                application.Education = model.Education;
-                application.Resume = model.Resume;
-                application.ApplicationDate = model.ApplicationDate;
-                application.UpdatedOn = DateTime.Now;
+                var model = new ApplicationViewModel
+                {
+                    Name = application.Name,
+                    Email = application.Email,
+                    PhoneNo = application.PhoneNo,
+                    Education = application.Education,
+                    Resume = application.Resume,
+                    ApplicationDate = application.ApplicationDate
+                };
 
-                _context.Applications.Update(application);
-                _context.SaveChanges();
+                ViewBag.JobPostId = application.JobPostId;
+                return View(model);
+            }
 
-                return RedirectToAction("Dashboard", "Account");
+            return NotFound();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Candidate")]
+        public IActionResult EditApplication(ApplicationViewModel model, Guid applicationId)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = GetUserIdFromLoggedInUser();
+                if (Guid.TryParse(userId, out Guid userGuid))
+                {
+                    var application = _context.Applications
+                        .FirstOrDefault(a => a.ApplicationId == applicationId && a.UserId == userGuid);
+
+                    if (application == null)
+                    {
+                        return NotFound();
+                    }
+
+                    application.Name = model.Name;
+                    application.Email = model.Email;
+                    application.PhoneNo = model.PhoneNo;
+                    application.Education = model.Education;
+                    application.Resume = model.Resume;
+                    application.ApplicationDate = model.ApplicationDate;
+                    application.UpdatedOn = DateTime.Now;
+
+                    _context.Applications.Update(application);
+                    _context.SaveChanges();
+
+                    return LocalRedirect("/Account/Dashboard");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid UserId format.");
+                }
             }
 
             return View(model);
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Candidate")]
+        public IActionResult Details(Guid applicationId)
+        {
+            var userId = GetUserIdFromLoggedInUser();
+            if (Guid.TryParse(userId, out Guid userGuid))
+            {
+                var application = _context.Applications
+                    .FirstOrDefault(a => a.ApplicationId == applicationId && a.UserId == userGuid);
+
+                if (application == null)
+                {
+                    return NotFound();
+                }
+
+                return View(application);
+            }
+
+            return NotFound();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Candidate")]
+        public IActionResult Delete(Guid applicationId)
+        {
+            var userId = GetUserIdFromLoggedInUser();
+            if (Guid.TryParse(userId, out Guid userGuid))
+            {
+                var application = _context.Applications
+                    .FirstOrDefault(a => a.ApplicationId == applicationId && a.UserId == userGuid);
+
+                if (application == null)
+                {
+                    return NotFound();
+                }
+
+                return View(application);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Candidate")]
+        public IActionResult DeleteConfirmed(Guid applicationId)
+        {
+            var userId = GetUserIdFromLoggedInUser();
+            if (Guid.TryParse(userId, out Guid userGuid))
+            {
+                var application = _context.Applications
+                    .FirstOrDefault(a => a.ApplicationId == applicationId && a.UserId == userGuid);
+
+                if (application == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Applications.Remove(application);
+                _context.SaveChanges();
+
+                
+                return RedirectToAction("DeleteConfirmed");
+            }
+
+            return NotFound();
+        }
+
+
 
         private string GetUserIdFromLoggedInUser()
         {
@@ -146,7 +265,4 @@ namespace Web.Controllers
             return userId!;
         }
     }
-
 }
-
-

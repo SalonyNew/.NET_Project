@@ -31,6 +31,6 @@ namespace Services.ViewModels
         [Required(ErrorMessage = "Type is required.")]
         public string Type { get; set; } = null!;
         public Guid? ApplicationId { get; set; }
-        public bool UserHasApplied { get; set; }
+        
     }
 }

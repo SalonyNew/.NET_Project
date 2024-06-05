@@ -13,41 +13,60 @@
 
         .navbar {
             background-color: #333;
-            color: #fff;
+            color: white;
             padding: 10px 20px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            .nav-links li {
+                display: inline-block;
+                margin-right: 20px;
+            }
+
+                .nav-links li a {
+                    color: white;
+                    font-size: 18px;
+                    text-decoration: none; 
+                }
+
+
+                .nav-links li:last-child {
+                    margin-right: 0;
+                }
+
+        .search-form {
+            display: flex;
             align-items: center;
         }
 
-            .navbar .nav-links {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
+            .search-form input[type="text"] {
+                padding: 8px;
+                margin-right: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
             }
 
-                .navbar .nav-links li {
-                    display: inline;
-                    margin-right: 20px;
-                }
+        .search-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-                    .navbar .nav-links li:last-child {
-                        margin-right: 0; /* Remove margin-right for the last item */
-                    }
+            .search-button:hover {
+                background-color: #45a049;
+            }
 
-                        .navbar .nav-links li:last-child a {
-                            margin-right:auto ; /* Push the last item to the right */
-                        }
-
-                    .navbar .nav-links li a {
-                        color: #fff;
-                        text-decoration: none;
-                        font-size: 1.1em;
-                    }
-
-                        .navbar .nav-links li a:hover {
-                            text-decoration: underline;
-                        }
 
         .container {
             width: 80%;
@@ -143,8 +162,12 @@
     <div class="navbar">
         <ul class="nav-links">
             <li><a asp-controller="Account" asp-action="Dashboard">Home</a></li>
-            
         </ul>
+        <form action="@Url.Action("SearchJobs", "Job")" method="get">
+            <input type="text" name="location" placeholder="Location">
+            <input type="text" name="type" placeholder="Type">
+            <button type="submit" class="search-button">Search</button>
+        </form>
     </div>
     <div class="container">
         <h2>Job Listings</h2>
@@ -156,13 +179,34 @@
                     <p><strong>Company Name:</strong> @job.CompanyName</p>
                     <h6>@job.Location</h6>
                     <p><strong>Description:</strong> @job.JobDescription</p>
-                    <p><strong>Qualification Required:</strong> @job.QualificationRequired</p>                   
+                    <p><strong>Qualification Required:</strong> @job.QualificationRequired</p>
                     <p><strong>Type:</strong> @job.Type</p>
                     <p><strong>Deadline:</strong> @job.Deadline.ToString("MM/dd/yyyy")</p>
-                    <a href="@Url.Action("Application", "Application", new { jobId = job.JobPostId })" class="apply-button">Apply Now</a>
+                    @if (job.ApplicationId != null)
+                    {
+                        @Html.ActionLink(
+                                 "Edit Application",
+                                 "Application",
+                                 "EditApplication",
+                                 new { applicationId = job.ApplicationId },
+                                 new { @class = "apply-button edit-application" }
+                                 )
+                    }
+                    else
+                    {
+                        @Html.ActionLink(
+                                 "Apply Now",
+                                 "Application",
+                                 "Application",
+                                 new { jobId = job.JobPostId },
+                                 new { @class = "apply-button apply-now" }
+                                 )
+                    }
                 </div>
             }
         </div>
     </div>
+
+
 </body>
 </html>

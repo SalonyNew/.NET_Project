@@ -9,7 +9,7 @@ namespace Services.ViewModels
     public class ApplicationViewModel
     {
         public Guid ApplicationId { get; set; }
-
+        public Guid JobPostId { get; set; }
         public string? Name { get; set; }
         public string? PhoneNo { get; set; }
         public string? Email { get; set; }

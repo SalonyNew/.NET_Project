@@ -59,10 +59,11 @@
     <h2>Schedule Interview</h2>
 
         <form asp-controller="Interview" asp-action="ScheduleInterview" method="post">
-            <input type="hidden" id="ApplicationId" name="ApplicationId" value="@ViewBag.ApplicationId" />
+            <input type="hidden" id="ApplicationId" name="ApplicationId" value="@Model.ApplicationId" />
             <div class="form-group">
-                <label>Applicant Name</label>
-                <input type="text" class="form-control" value="@Model.ApplicantName" readonly />
+                <label asp-for="ApplicantName">Applicant Name</label>
+                <input asp-for="ApplicantName" class="form-control" type="text" readonly/>
+                <span asp-validation-for="ApplicantName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="InterviewDate">Interview Date</label>
@@ -81,10 +82,16 @@
                 <input asp-for="Location" class="form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
+             
+           <button type="submit" onclick="return myFunction()">Submit</button>
 
-            <button type="submit" class="btn btn-primary">Schedule Interview</button>
-        </form>
-
+            </form>
     </body>
+    <script>
+        function myFunction() {
+            var confirmation = confirm("Are you sure you want to schedule an interview ?");
+            return confirmation;
+        }
+    </script>
     </html>
 }

@@ -2,20 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Services.ViewModels;
 using System.Text;
 using Services.PasswordEncryption;
-using System.Security.Cryptography.Xml;
-using Azure.Identity;
-using Services;
-using System.Diagnostics.Eventing.Reader;
 using System.Security.Claims;
-using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-
-
+using Microsoft.AspNetCore.Http;
+using Services;
 
 namespace Web.Controllers
 {
@@ -26,15 +20,13 @@ namespace Web.Controllers
         private readonly AESEncryptionUtility _encryption;
         private readonly JWTHelper _helper;
 
-        public AccountController(AppdbContext context, IConfiguration config, AESEncryptionUtility encryption,JWTHelper helper)
+        public AccountController(AppdbContext context, IConfiguration config, AESEncryptionUtility encryption, JWTHelper helper)
         {
             _context = context;
             _config = config;
             _encryption = encryption;
             _helper = helper;
         }
-
-        
 
         [HttpGet]
         public IActionResult Signup()
@@ -49,15 +41,17 @@ namespace Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    // Check if a user with the same email already exists
                     if (_context.UserCredentials.Any(u => u.Email == model.Email))
                     {
                         ModelState.AddModelError("Email", "A user with this email already exists.");
                         return View(model);
                     }
 
-                    var roleId = _context.Roles.FirstOrDefault(r => r.Name == model.Role)?.RoleId;
-                     
+                    // Encrypt the password and generate salt
                     var passwordHash = _encryption.Encrypt(model.Password, _config["EncryptionKey"]!, out string passwordSalt);
+
+                    // Create a new user
                     var user = new UserCredential
                     {
                         Name = model.Name,
@@ -65,10 +59,10 @@ namespace Web.Controllers
                         Age = model.Age,
                         Gender = model.Gender,
                         RoleId = _context.Roles
-                        .Where(role => role.Name == model.Role)
-                        .Select(role => role.RoleId)
-                        .FirstOrDefault(),
-                        PasswordHash = passwordHash, 
+                            .Where(role => role.Name == model.Role)
+                            .Select(role => role.RoleId)
+                            .FirstOrDefault(),
+                        PasswordHash = passwordHash,
                         PasswordSalt = passwordSalt,
                         CreatedAt = DateTime.Now,
                         UpdatedOn = DateTime.Now,
@@ -76,14 +70,15 @@ namespace Web.Controllers
                         Dob = model.Dob
                     };
 
-                    
+                    // Save the new user to the database
                     _context.UserCredentials.Add(user);
                     _context.SaveChanges();
+                    TempData["SignupSuccess"] = true;
 
                     return RedirectToAction("Dashboard");
                 }
             }
-            catch (Exception )
+            catch (Exception)
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while processing your request. Please try again later.");
             }
@@ -91,19 +86,20 @@ namespace Web.Controllers
             return View(model);
         }
 
-
         [HttpGet]
-        public IActionResult LogIn()
+        public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult LogIn(Login model)
+        public IActionResult Login(Login model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    
                     var user = _context.UserCredentials
                         .Where(u => u.Email == model.Email)
                         .FirstOrDefault();
@@ -114,16 +110,20 @@ namespace Web.Controllers
                         return View(model);
                     }
 
+                    
                     var passwordHash = _encryption.Authencrypt(model.Password, _config["EncryptionKey"]!, user.PasswordSalt);
 
+                    
                     if (user.PasswordHash == passwordHash)
                     {
-                        var RoleName = _context.Roles
+                        
+                        var roleName = _context.Roles
                             .Where(role => role.RoleId == user.RoleId)
                             .Select(role => role.Name)
                             .FirstOrDefault();
 
-                        var token = _helper.GenerateJwtToken(user.Email, RoleName!.ToString());
+                        
+                        var token = _helper.GenerateJwtToken(user.Email, roleName!.ToString());
 
                         var cookieOptions = new CookieOptions
                         {
@@ -132,6 +132,7 @@ namespace Web.Controllers
                             SameSite = SameSiteMode.Strict
                         };
 
+                       
                         HttpContext.Response.Cookies.Append("jwtToken", token, cookieOptions);
                         return RedirectToAction("Dashboard");
                     }
@@ -152,20 +153,19 @@ namespace Web.Controllers
 
         public IActionResult Logout()
         {
+            
             Response.Cookies.Delete("jwtToken");
             return RedirectToAction("Index", "Home");
-           
         }
 
         public IActionResult Dashboard()
         {
+            
+            string userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            string userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value ;
-
-            // Pass the role to the view
+            
             ViewData["UserRole"] = userRole;
             return View();
         }
-
     }
 }

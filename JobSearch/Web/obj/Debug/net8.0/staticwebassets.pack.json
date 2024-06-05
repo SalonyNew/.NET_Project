@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\Login1.png"
     },
     {
+      "Id": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\Profile.png",
+      "PackagePath": "staticwebassets\\Profile.png"
+    },
+    {
       "Id": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

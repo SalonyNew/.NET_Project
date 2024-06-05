@@ -283,6 +283,42 @@
             text-align: center;
             font-family: "Poppins", sans-serif;
         }
+
+        .sideNavigationBar {
+            height: 100%;
+            width: 0; 
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: green;
+            overflow-x: hidden;
+            transition: 0.3s ease-in-out;
+            padding-top: 60px;
+        }
+
+           
+            .sideNavigationBar .closeButton {
+                position: absolute;
+                top: 10px;
+                right: 25px;
+                font-size: 30px; }
+
+        
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: green;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
     </style>
 
     <script>
@@ -300,45 +336,46 @@
         <div class="heading">Job Portal</div>
         <span class="sideMenuButton" onclick="openNavbar()">&#9776;</span>
 
+        @* @{
+            var userRole = ViewData["UserRole"] as string;
+        } *@
+
         <div class="navbar">
             <ul>
-                <li><a asp-controller="Dashboard" asp-action="Home">Home</a></li>
+                <li><a asp-controller="Account" asp-action="Dashboard">Home</a></li>
 
                 @if (userRole == "Admin" || userRole == "Recruiter")
                 {
-                    <li><a asp-controller="Job" asp-action="JobPost">JobPost</a></li>
-                    <li> <a asp-controller="Recruiter" asp-action="ViewApplication">Applications</a></li>
+                    <li>
+                        <a asp-controller="Job" asp-action="JobPost">JobPost</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Recruiter" asp-action="ViewApplication">Applications</a>
+                    </li>
                 }
 
-                @if (userRole == "Admin" || userRole == "Candidate" )
+                @if (userRole == "Admin" || userRole == "Candidate")
                 {
-                    <li><a asp-controller="Job" asp-action="JobList">JobList</a></li>
-                }
+                    <li>
+                        <a asp-controller="Job" asp-action="JobList">JobList</a>
+                    </li>
 
-                <li><a asp-controller="Profile" asp-action="Profile">Profile</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Account</a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-controller="Profile" asp-action="ShowProfile">My Profile</a></li>
+                            <li><a asp-controller="Application" asp-action="ApplicationIndex">My Applications</a></li>
+                        </ul>
+                    </li>
+                }
                 <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="sideNavigationBar" id="sideNavigationBar">
-        <a href="#" class="closeButton" onclick="closeNavbar()">&#x274C;</a>
-        <a href="#">Home</a>
 
-        @if (userRole == "Admin" || userRole == "Recruiter")
-        {
-            <a asp-controller="Job" asp-action="JobPost">JobPost</a>
-            <a asp-controller="Recruiter" asp-action="ViewApplication">Applications</a>
-        }
-
-        @if (userRole == "Admin" || userRole == "Candidate" )
-        {
-            <a asp-controller="Job" asp-action="JobList">JobList</a>
-        }
-
-        <a asp-controller="Profile" asp-action="Profile">Profile</a>
-        <a asp-controller="Account" asp-action="Logout">Logout</a>
-    </div>
+    
 
     <div class="line" id="Home">
         <div class="side1">

@@ -86,18 +86,13 @@ namespace Web.Controllers
             return View(model);
         }
 
-        public string GetUserIdFromLoggedInUser()
-        {
-            var UserData= User.FindFirst(ClaimTypes.Email)?.Value;
-            var UserId = _context.UserCredentials.FirstOrDefault(u => u.Email == UserData)!.UserId.ToString();
-            return UserId;
-        }
+       
 
      
         [Authorize(Roles = "Candidate")]
         public IActionResult JobList(JobInfo model)
         {
-            var userId = GetCurrentUserId();
+            var userId = GetUserIdFromLoggedInUser();
 
             var jobPosts = _context.JobPosts.Select(job => new JobInfo
             {
@@ -121,7 +116,7 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult SearchJobs(string location, string type)
         {
-            var userId = GetCurrentUserId(); 
+            var userId = GetUserIdFromLoggedInUser();
 
             var query = _context.JobPosts.AsQueryable();
 
@@ -157,14 +152,14 @@ namespace Web.Controllers
             return View("JobList", jobPosts); 
         }
 
-        
-        public string GetCurrentUserId()
+
+        public string GetUserIdFromLoggedInUser()
         {
-            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            var userId = _context.UserCredentials.FirstOrDefault(u => u.Email == userEmail)?.UserId.ToString();
-            return userId;
+            var UserData = User.FindFirst(ClaimTypes.Email)?.Value;
+            var UserId = _context.UserCredentials.FirstOrDefault(u => u.Email == UserData)!.UserId.ToString();
+            return UserId;
         }
-        
+
     }
 }
 

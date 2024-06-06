@@ -1,0 +1,123 @@
+﻿@model Services.ViewModels.ApplicationViewModel
+
+@{
+    ViewData["Title"] = "Edit Application";
+}
+
+<style>
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .navbar {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+        .nav-links li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+            .nav-links li a {
+                color: white;
+                font-size: 18px;
+                text-decoration: none;
+            }
+
+            .nav-links li:last-child {
+                margin-right: 0;
+            }
+</style>
+<div>
+    <ul class="nav-links">
+        <li><a asp-controller="Account" asp-action="Dashboard">Home</a></li>
+    </ul>
+</div>
+<h2>Edit Application</h2>
+
+<form asp-controller="Application" asp-action="EditJobApplicationForm" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="ApplicationId" value="@Model.ApplicationId" />
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNo" class="control-label"></label>
+        <input asp-for="PhoneNo" class="form-control" />
+        <span asp-validation-for="PhoneNo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Education" class="control-label"></label>
+        <input asp-for="Education" class="form-control" />
+        <span asp-validation-for="Education" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Resume" class="control-label"></label>
+        <input asp-for="Resume" class="form-control" />
+        <span asp-validation-for="Resume" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ApplicationDate" class="control-label"></label>
+        <input asp-for="ApplicationDate" class="form-control" />
+        <span asp-validation-for="ApplicationDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" onclick="return MyFunction()" />
+    </div>
+</form>
+
+<script>
+    function MyFunction() {
+        var confirmation = confirm("Are you sure you want to update the application?");
+        return confirmation;
+    }
+</script>

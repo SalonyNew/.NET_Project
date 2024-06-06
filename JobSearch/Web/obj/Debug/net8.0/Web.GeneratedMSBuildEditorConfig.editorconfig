@@ -30,28 +30,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxTaWduVXAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/.NET_Project/JobSearch/Web/Views/Application/Application.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cQXBwbGljYXRpb24uY3NodG1s
+[C:/.NET_Project/JobSearch/Web/Views/Application/DeleteJobApplicationForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cRGVsZXRlSm9iQXBwbGljYXRpb25Gb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/.NET_Project/JobSearch/Web/Views/Application/ApplicationIndex.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cQXBwbGljYXRpb25JbmRleC5jc2h0bWw=
+[C:/.NET_Project/JobSearch/Web/Views/Application/EditJobApplicationForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cRWRpdEpvYkFwcGxpY2F0aW9uRm9ybS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/.NET_Project/JobSearch/Web/Views/Application/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cRGVsZXRlLmNzaHRtbA==
+[C:/.NET_Project/JobSearch/Web/Views/Application/JobApplicationForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cSm9iQXBwbGljYXRpb25Gb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/.NET_Project/JobSearch/Web/Views/Application/DeleteConfirmed.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cRGVsZXRlQ29uZmlybWVkLmNzaHRtbA==
+[C:/.NET_Project/JobSearch/Web/Views/Application/JobApplicationFormDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cSm9iQXBwbGljYXRpb25Gb3JtRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/.NET_Project/JobSearch/Web/Views/Application/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/.NET_Project/JobSearch/Web/Views/Application/EditApplication.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cRWRpdEFwcGxpY2F0aW9uLmNzaHRtbA==
+[C:/.NET_Project/JobSearch/Web/Views/Application/JobApplicationIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cSm9iQXBwbGljYXRpb25JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/.NET_Project/JobSearch/Web/Views/Home/Index.cshtml]

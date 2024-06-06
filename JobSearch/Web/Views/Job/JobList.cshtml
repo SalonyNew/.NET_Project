@@ -34,9 +34,8 @@
                 .nav-links li a {
                     color: white;
                     font-size: 18px;
-                    text-decoration: none; 
+                    text-decoration: none;
                 }
-
 
                 .nav-links li:last-child {
                     margin-right: 0;
@@ -66,7 +65,6 @@
             .search-button:hover {
                 background-color: #45a049;
             }
-
 
         .container {
             width: 80%;
@@ -163,7 +161,7 @@
         <ul class="nav-links">
             <li><a asp-controller="Account" asp-action="Dashboard">Home</a></li>
         </ul>
-        <form action="@Url.Action("SearchJobs", "Job")" method="get">
+        <form action="@Url.Action("SearchJobs", "Job")" method="get" class="search-form">
             <input type="text" name="location" placeholder="Location">
             <input type="text" name="type" placeholder="Type">
             <button type="submit" class="search-button">Search</button>
@@ -184,29 +182,11 @@
                     <p><strong>Deadline:</strong> @job.Deadline.ToString("MM/dd/yyyy")</p>
                     @if (job.ApplicationId != null)
                     {
-                        @Html.ActionLink(
-                                 "Edit Application",
-                                 "Application",
-                                 "EditApplication",
-                                 new { applicationId = job.ApplicationId },
-                                 new { @class = "apply-button edit-application" }
-                                 )
-                    }
-                    else
-                    {
-                        @Html.ActionLink(
-                                 "Apply Now",
-                                 "Application",
-                                 "Application",
-                                 new { jobId = job.JobPostId },
-                                 new { @class = "apply-button apply-now" }
-                                 )
+                        <a href="@Url.Action("CreateApplication", "Application", new { jobId = job.JobPostId })" class="apply-button">Apply Now</a>
                     }
                 </div>
             }
         </div>
     </div>
-
-
 </body>
 </html>

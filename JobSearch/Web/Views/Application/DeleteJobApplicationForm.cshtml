@@ -1,0 +1,115 @@
+﻿@model Services.ViewModels.ApplicationViewModel
+
+@{
+    ViewData["Title"] = "Delete Application";
+}
+
+<style>
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #dc3545;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #ccc;
+        margin: 20px 0;
+    }
+
+    dl {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-gap: 10px;
+    }
+
+    dt {
+        font-weight: bold;
+    }
+</style>
+
+<div class="container">
+    <h2>Delete Application</h2>
+    <div>
+        <h4>Application</h4>
+        <hr />
+        <dl>
+            <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+            <dd>@Html.DisplayFor(model => model.Name)</dd>
+            <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+            <dd>@Html.DisplayFor(model => model.Email)</dd>
+            <dt>@Html.DisplayNameFor(model => model.PhoneNo)</dt>
+            <dd>@Html.DisplayFor(model => model.PhoneNo)</dd>
+            <dt>@Html.DisplayNameFor(model => model.Education)</dt>
+            <dd>@Html.DisplayFor(model => model.Education)</dd>
+            <dt>@Html.DisplayNameFor(model => model.Resume)</dt>
+            <dd>@Html.DisplayFor(model => model.Resume)</dd>
+            <dt>@Html.DisplayNameFor(model => model.ApplicationDate)</dt>
+            <dd>@Html.DisplayFor(model => model.ApplicationDate)</dd>
+        </dl>
+
+        <form asp-controller="Application" asp-action="DeleteApplicationConfirmed" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="ApplicationId" />
+            <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this application?')" />
+            <a asp-asp-controller="Account" asp-action="Dashboard" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

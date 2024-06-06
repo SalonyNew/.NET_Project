@@ -24,21 +24,29 @@ namespace Web.Controllers
         [HttpGet]
         [Authorize(Roles = "Candidate")]
         [NoCache]
-        public IActionResult Application(Guid jobId)
+        public IActionResult JobApplicationForm(Guid jobId)
         {
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
             {
+                
+                var jobPost = _context.JobPosts.FirstOrDefault(j => j.JobPostId == jobId);
+                if (jobPost == null)
+                {                  
+                    Console.WriteLine($"Invalid JobId: {jobId}");
+                    return RedirectToAction("Index", "Home"); 
+                }
+
                 var existingApplication = _context.Applications
                     .FirstOrDefault(a => a.UserId == userGuid && a.JobPostId == jobId);
 
                 if (existingApplication != null)
                 {
-                    // Redirect to EditApplication if the application already exists
                     return RedirectToAction("EditApplication", new { applicationId = existingApplication.ApplicationId });
                 }
             }
 
+           
             ViewBag.JobPostId = jobId;
             return View(new ApplicationViewModel());
         }
@@ -46,7 +54,7 @@ namespace Web.Controllers
         [HttpPost]
         [Authorize(Roles = "Candidate")]
         [NoCache]
-        public IActionResult Application(ApplicationViewModel model, Guid jobId)
+        public IActionResult JobApplicationForm(ApplicationViewModel model, Guid jobId)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +63,13 @@ namespace Web.Controllers
                     ModelState.AddModelError(string.Empty, "User is not authenticated.");
                     return View(model);
                 }
+                var jobPost = _context.JobPosts.Find(jobId);
+                if (jobPost == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Job post not found.");
+                    return View(model);
+                }
+
 
                 string jwtToken = HttpContext.Request.Cookies["jwtToken"]!;
                 JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
@@ -103,7 +118,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Candidate")]
-        public IActionResult ApplicationIndex(Application model)
+        public IActionResult JobApplicationIndex(Application model)
         {
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
@@ -120,7 +135,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Candidate")]
-        public IActionResult EditApplication(Guid applicationId)
+        public IActionResult EditJobApplicationForm(Guid applicationId)
         {
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
@@ -135,6 +150,7 @@ namespace Web.Controllers
 
                 var model = new ApplicationViewModel
                 {
+                    ApplicationId = application.ApplicationId,
                     Name = application.Name,
                     Email = application.Email,
                     PhoneNo = application.PhoneNo,
@@ -152,7 +168,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Candidate")]
-        public IActionResult EditApplication(ApplicationViewModel model, Guid applicationId)
+        public IActionResult EditJobApplicationForm(ApplicationViewModel model, Guid applicationId)
         {
             if (ModelState.IsValid)
             {
@@ -178,7 +194,7 @@ namespace Web.Controllers
                     _context.Applications.Update(application);
                     _context.SaveChanges();
 
-                    return LocalRedirect("/Account/Dashboard");
+                    return RedirectToAction("Dashboard", "Account");
                 }
                 else
                 {
@@ -191,7 +207,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Candidate")]
-        public IActionResult Details(Guid applicationId)
+        public IActionResult JobApplicationFormDetails(Guid applicationId)
         {
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
@@ -212,7 +228,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Candidate")]
-        public IActionResult Delete(Guid applicationId)
+        public IActionResult DeleteJobApplicationForm(Guid applicationId)
         {
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
@@ -225,15 +241,27 @@ namespace Web.Controllers
                     return NotFound();
                 }
 
-                return View(application);
+                var model = new ApplicationViewModel
+                {
+                    ApplicationId = application.ApplicationId,
+                    Name = application.Name,
+                    Email = application.Email,
+                    PhoneNo = application.PhoneNo,
+                    Education = application.Education,
+                    Resume = application.Resume,
+                    ApplicationDate = application.ApplicationDate
+                };
+
+                return View(model);
             }
 
             return NotFound();
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Candidate")]
-        public IActionResult DeleteConfirmed(Guid applicationId)
+        public IActionResult DeleteJobApplicationFormConfirmed(Guid applicationId)
         {
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
@@ -249,8 +277,7 @@ namespace Web.Controllers
                 _context.Applications.Remove(application);
                 _context.SaveChanges();
 
-                
-                return RedirectToAction("DeleteConfirmed");
+                return RedirectToAction("Dashboard", "Account");
             }
 
             return NotFound();

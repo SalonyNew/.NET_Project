@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.ViewModels
 {
-    public class Signup
+    public class SignUp
     {
         [Required(ErrorMessage = "Name is required.")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Name must be between 2 and 50 characters.")]
@@ -18,7 +19,7 @@ namespace Services.ViewModels
         public string Email { get; set; } = null!;
 
         [Required(ErrorMessage = "Age is required.")]
-        [Range(18, 120, ErrorMessage = "Age must be between 18 and 120.")]
+        [Range(18, 120, ErrorMessage = "Age must be between 18 and 120.")]       
         public int Age { get; set; }
 
         [Required(ErrorMessage = "Gender is required.")]
@@ -26,14 +27,16 @@ namespace Services.ViewModels
 
         [Required(ErrorMessage = "Phone number is required.")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Invalid phone number.")]
-        public string PhoneNo { get; set; }
+        public string? PhoneNo { get; set; }
 
         [Required(ErrorMessage = "Date of Birth is required.")]
-        [DataType(DataType.Date, ErrorMessage = "Invalid date format.")]
-        public DateOnly Dob { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
+        [MinimumAge(18, ErrorMessage = "You must be at least 18 years old.")]
+        public DateTime Dob { get; set; }
 
         [Required(ErrorMessage = "Role is required.")]
-        public string Role { get; set; }
+        public string? Role { get; set; }
 
         [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]

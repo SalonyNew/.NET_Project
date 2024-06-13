@@ -103,37 +103,36 @@
         <h2>Job Posting Form</h2>
         <form method="post" asp-controller="Job" asp-action="JobPost">
             <div class="form-group">
-                <label for="companyname">Company Name:</label>
-                <input type="text" id="companyname" name="companyname" placeholder="Enter company name">
+                <label for="companyname">Company Name</label>
+                <input type="text" id="companyname" name="companyname" >
             </div>
             <div class="form-group">
-                <label for="jobTitle">Job Title:</label>
-                <input type="text" id="jobTitle" name="jobTitle" placeholder="Enter job title">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" name="jobTitle" >
             </div>
             <div class="form-group">
-                <label for="jobDescription">Job Description:</label>
-                <textarea id="jobDescription" name="jobDescription" rows="3" placeholder="Enter job description"></textarea>
+                <label for="jobDescription">Job Description</label>
+                <textarea id="jobDescription" name="jobDescription" rows="3" ></textarea>
             </div>
             <div class="form-group">
-                <label for="qualificationRequired">Qualification Required:</label>
-                <input type="text" id="qualificationRequired" name="qualificationRequired" placeholder="Enter qualification required">
+                <label for="qualificationRequired">Qualification Required</label>
+                <input type="text" id="qualificationRequired" name="qualificationRequired">
             </div>
             <div class="form-group">
-                <label for="deadline">Deadline:</label>
+                <label for="deadline">Deadline</label>
                 <input type="date" id="deadline" name="deadline">
             </div>
             <div class="form-group">
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" placeholder="Enter location">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" >
             </div>
             <div class="form-group">
-                <label for="type">Type:</label>
+                <label for="type">Type</label>
                 <select id="type" name="type">
                     <option value="">Select type</option>
                     <option value="Full-time">Full-time</option>
-                    <option value="Part-time">Part-time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Freelance">Freelance</option>
+                    <option value="Part-time">Part-time</option>                   
+                    <option value="Freelance">Freelancer</option>
                 </select>
             </div>
             <button type="submit" onclick="return myFunction()">Submit</button>

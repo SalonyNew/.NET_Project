@@ -109,7 +109,7 @@
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="ApplicationId" />
             <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this application?')" />
-            <a asp-asp-controller="Account" asp-action="Dashboard" class="btn btn-secondary">Cancel</a>
+            <a asp-asp-controller="Application" asp-action="JobApplicationIndex" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </div>

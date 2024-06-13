@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\jobportal.jpg",
+      "PackagePath": "staticwebassets\\jobportal.jpg"
+    },
+    {
       "Id": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -1,0 +1,142 @@
+﻿@model IEnumerable<Services.ViewModels.ApplicationViewModel>
+
+@{
+    ViewData["Title"] = "View Applications";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+            table th, table td {
+                padding: 10px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            table th {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                transform: translateY(-2px);
+            }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+            .nav-links li {
+                margin-right: 20px;
+            }
+
+                .nav-links li a {
+                    color: white;
+                    font-size: 18px;
+                    text-decoration: none;
+                }
+
+                .nav-links li:last-child {
+                    margin-right: 0;
+                }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul class="nav-links">
+            <li><a asp-controller="Account" asp-action="Dashboard">Home</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h2>Applications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Education</th>
+                    <th>Application Date</th>
+                    <th>Resume</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var app in Model)
+                {
+                    <tr>
+                        <td>@app.Name</td>
+                        <td>@app.Email</td>
+                        <td>@app.PhoneNo</td>
+                        <td>@app.Education</td>
+                        <td>@app.ApplicationDate.ToString("MM/dd/yyyy")</td>
+                        <td>
+                            <a href="@Url.Action("DownloadResume", "Recruiter", new { applicationId = app.ApplicationId })">Resume</a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("ScheduleInterview", "Interview", new { applicationId = app.ApplicationId })" class="btn-primary">Schedule Interview</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\.NET_Project\JobSearch\Web
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/.NET_Project/JobSearch/Web/Views/Account/AboutUs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBYm91dFVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/.NET_Project/JobSearch/Web/Views/Account/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxEYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,6 +62,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW50ZXJ2aWV3XFNjaGVkdWxlSW50ZXJ2aWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/.NET_Project/JobSearch/Web/Views/Job/EditJobPost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9iXEVkaXRKb2JQb3N0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/.NET_Project/JobSearch/Web/Views/Job/JobList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9iXEpvYkxpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -66,16 +74,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9iXEpvYlBvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/.NET_Project/JobSearch/Web/Views/Profile/Profile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxQcm9maWxlLmNzaHRtbA==
+[C:/.NET_Project/JobSearch/Web/Views/Profile/ShowUserProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxTaG93VXNlclByb2ZpbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/.NET_Project/JobSearch/Web/Views/Profile/ShowProfile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxTaG93UHJvZmlsZS5jc2h0bWw=
+[C:/.NET_Project/JobSearch/Web/Views/Profile/UserProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxVc2VyUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/.NET_Project/JobSearch/Web/Views/Recruiter/ViewApplication.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjcnVpdGVyXFZpZXdBcHBsaWNhdGlvbi5jc2h0bWw=
+[C:/.NET_Project/JobSearch/Web/Views/Recruiter/ViewCandidateApplicationForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjcnVpdGVyXFZpZXdDYW5kaWRhdGVBcHBsaWNhdGlvbkZvcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/.NET_Project/JobSearch/Web/Views/Shared/Error.cshtml]

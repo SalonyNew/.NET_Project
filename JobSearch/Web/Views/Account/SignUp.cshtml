@@ -1,200 +1,293 @@
-﻿@model Services.ViewModels.Signup;
-@{
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Signup</title>
-        <style>
-            
-            .container-fluid {
-                background-color: #fff;
-                padding: 0.5rem;
-                border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                max-width: 500px;
-                display: block;
-                flex-direction: row;
-                
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 60px 0 0 0; /* Add top padding to avoid overlap with fixed navbar */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+            .nav-links li {
+                margin-right: 20px;
             }
 
-           
-            .left-side {
-                flex: 1;
-                padding-right: 1rem;
-            }
-
-            
-            .right-side {
-                flex: 1;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            
-            .card-title {
-                font-size: 1.5rem;
-                text-align: center;
-                margin-bottom: 1.5rem;
-                color: #007bff;
-               
-            }
-
-           
-            .form-group {
-                margin-bottom: 1.5rem;
-            }
-
-            
-            .form-control {
-                width: 100%;
-                padding: 0.5rem;
-                border: 1px solid #ced4da;
-                border-radius: 0.25rem;
-                transition: border-color 0.3s;
-                box-sizing: border-box;
-            }
-
-           
-            .form-check-input {
-                margin-right: 0.5rem;
-            }
-
-            
-            .btn {
-                color: #fff;
-                background-color: #007bff;
-                border: none;
-                border-radius: 5px;
-                padding: 0.75rem 1rem;
-                cursor: pointer;
-                transition: background-color 0.3s;
-                width: 100%;
-            }
-            
-                .btn:hover {
-                    background-color: #0056b3;
+                .nav-links li a {
+                    color: white;
+                    font-size: 18px;
+                    text-decoration: none;
                 }
 
-            
-            .mt-3 {
-                margin-top: 1.5rem;
-            }
-
-            
-            a {
-                color: #007bff;
-                text-decoration: none;
-                transition: color 0.3s;
-            }
-
-                
-                a:hover {
-                    color: #0056b3;
+                .nav-links li:last-child {
+                    margin-right: 0;
                 }
 
-           
-            .text-danger {
-                color: red;
-            }
-            
-            .login-image {
-                width: 100%;
-                height: auto;
-                display: block;
-                margin-top: 20px;
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="date"] {
+            width: calc(100% - 22px); /* Adjusted width to accommodate the date picker icon */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            button:hover {
+                background-color: #0056b3;
             }
 
-            .mt-3 {
-                margin-top: 1.5rem;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container-fluid bg-light p-3 rounded">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="card border-primary">
-                        <div class="card-body">
-                            <h5 class="card-title text-center mb-4">Signup</h5>
-                            <form asp-controller="Account" asp-action="Signup">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group">
-                                    <label asp-for="Name" class="control-label">Name:</label>
-                                    <input asp-for="Name" class="form-control" placeholder="Enter your name" />
-                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Email" class="control-label">Email:</label>
-                                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Age" class="control-label">Age:</label>
-                                    <input asp-for="Age" class="form-control" placeholder="Enter your age" />
-                                    <span asp-validation-for="Age" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="PhoneNo" class="control-label">Phone Number:</label>
-                                    <input asp-for="PhoneNo" class="form-control" placeholder="Enter your phone number" />
-                                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Dob" class="control-label">Date of Birth:</label>
-                                    <input asp-for="Dob" class="form-control" placeholder="Enter your date of birth" />
-                                    <span asp-validation-for="Dob" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Gender" class="control-label">Gender:</label>
-                                    <select asp-for="Gender" class="form-control">
-                                        <option value="">Select Gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Others">Others</option>
-                                    </select>
-                                    <span asp-validation-for="Gender" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Role" class="control-label">Role:</label>
-                                    <select asp-for="Role" class="form-control">
-                                        <option value="">Select Role</option>
-                                        <option value="Candidate">Candidate</option>
-                                        <option value="Recruiter">Recruiter</option>
-                                        <option value="Admin">Admin</option>
-                                    </select>
-                                    <span asp-validation-for="Role" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Password" class="control-label">Password:</label>
-                                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
-                                    <span asp-validation-for="Password" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="ConfirmPassword" class="control-label">Confirm Password:</label>
-                                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" />
-                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                                </div>
-
-                                <div class="form-group text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="myFunction()">Signup</button>
-                                </div>
-                                <div class="container mt-3">
-                                    <a asp-action="LogIn" asp-controller="Account">Back to Login</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul class="nav-links">
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h2>Signup</h2>
+        <form method="post" action="/Account/Signup" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" id="Name" name="Name" required>
+                <div class="error-message" id="nameError"></div>
             </div>
-        </div>
-        <script>
-            function myFunction() {
-                alert("Signup Successful...");
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="email" id="Email" name="Email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="Age">Age</label>
+                <input type="number" id="Age" name="Age" required>
+                <div class="error-message" id="ageError"></div>
+            </div>
+            <div class="form-group">
+                <label for="Gender">Gender</label>
+                <select id="Gender" name="Gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div class="error-message" id="genderError"></div>
+            </div>
+            <div class="form-group">
+                <label for="PhoneNo">Phone Number</label>
+                <input type="text" id="PhoneNo" name="PhoneNo" required>
+                <div class="error-message" id="phoneError"></div>
+            </div>
+            <div class="form-group">
+                <label for="Dob">Date of Birth</label>
+                <input type="date" id="Dob" name="Dob" required>
+                <div class="error-message" id="dobError"></div>
+            </div>
+            <div class="form-group">
+                <label for="Role">Role</label>
+                <select id="Role" name="Role" required>
+                    <option value="">Select Role</option>
+                    <option value="Candidate">Candidate</option>
+                    <option value="Recruiter">Recruiter</option>
+                </select>
+                <div class="error-message" id="roleError"></div>
+            </div>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" id="Password" name="Password" required>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <div class="form-group">
+                <label for="ConfirmPassword">Confirm Password</label>
+                <input type="password" id="ConfirmPassword" name="ConfirmPassword" required>
+                <div class="error-message" id="confirmPasswordError"></div>
+            </div>
+            <button type="submit">Signup</button>
+            <!-- Display error messages if any -->
+            <div class="error-message" id="formError"></div>
+            @if (ViewData["ErrorMessage"] != null)
+            {
+                <div class="error-message">@ViewData["ErrorMessage"]</div>
             }
-        </script>
-    </body>
-    </html>
+        </form>
+    </div>
+    <script>
+        function validateForm() {
+            let isValid = true;
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const ageError = document.getElementById('ageError');
+            const genderError = document.getElementById('genderError');
+            const phoneError = document.getElementById('phoneError');
+            const dobError = document.getElementById('dobError');
+            const roleError = document.getElementById('roleError');
+            const passwordError = document.getElementById('passwordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const formError = document.getElementById('formError');
 
-}
+            // Clear all previous error messages
+            nameError.innerText = '';
+            emailError.innerText = '';
+            ageError.innerText = '';
+            genderError.innerText = '';
+            phoneError.innerText = '';
+            dobError.innerText = '';
+            roleError.innerText = '';
+            passwordError.innerText = '';
+            confirmPasswordError.innerText = '';
+            formError.innerText = '';
+
+            const name = document.getElementById('Name').value;
+            if (!name) {
+                nameError.innerText = 'Name is required.';
+                isValid = false;
+            }
+
+            // Email validation using HTML5 constraint validation API
+            const emailInput = document.getElementById('Email');
+            if (!emailInput.checkValidity()) {
+                emailError.innerText = 'Invalid email address.';
+                isValid = false;
+            }
+
+            const age = document.getElementById('Age').value;
+            if (!age) {
+                ageError.innerText = 'Age is required.';
+                isValid = false;
+            } else if (age < 18) {
+                ageError.innerText = 'You must be at least 18 years old.';
+                isValid = false;
+            }
+
+            const gender = document.getElementById('Gender').value;
+            if (!gender) {
+                genderError.innerText = 'Gender is required.';
+                isValid = false;
+            }
+
+            const phone = document.getElementById('PhoneNo').value;
+            const phonePattern = /^\d{10}$/;
+            if (!phone) {
+                phoneError.innerText = 'Phone number is required.';
+                isValid = false;
+            } else if (!phonePattern.test(phone)) {
+                phoneError.innerText = 'Invalid phone number.';
+                isValid = false;
+            }
+
+            const dob = new Date(document.getElementById('Dob').value);
+            const today = new Date();
+            let dobAge = today.getFullYear() - dob.getFullYear();
+            const m = today.getMonth() - dob.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                dobAge--;
+            }
+            if (!dob) {
+                dobError.innerText = 'Date of birth is required.';
+                isValid = false;
+            } else if (dobAge < 18) {
+                dobError.innerText = 'You must be at least 18 years old.';
+                isValid = false;
+            }
+
+            const role = document.getElementById('Role').value;
+            if (!role) {
+                roleError.innerText = 'Role is required.';
+                isValid = false;
+            }
+
+            const password = document.getElementById('Password').value;
+            if (!password) {
+                passwordError.innerText = 'Password is required.';
+                isValid = false;
+            }
+
+            const confirmPassword = document.getElementById('ConfirmPassword').value;
+            if (!confirmPassword) {
+                confirmPasswordError.innerText = 'Confirm password is required.';
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                confirmPasswordError.innerText = 'Passwords do not match.';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                formError.innerText = 'Please fix the errors above and try again.';
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>

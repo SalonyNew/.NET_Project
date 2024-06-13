@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OqHvkMKIGoQJ+dJta2B2p4tmhJ5JHnfQhkdnQK5j6k8=",
+  "Hash": "4pOUZqnUAj1KxagM5Shhm7ue/nYrw11pT+/F+BnxAhA=",
   "Source": "Web",
   "BasePath": "_content/Web",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\jobportal.jpg",
+      "SourceId": "Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\",
+      "BasePath": "_content/Web",
+      "RelativePath": "jobportal.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\jobportal.jpg"
     },
     {
       "Identity": "C:\\.NET_Project\\JobSearch\\Web\\wwwroot\\JP1.jpg",

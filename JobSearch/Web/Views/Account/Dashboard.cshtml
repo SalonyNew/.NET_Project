@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
     <style>
@@ -144,12 +144,12 @@
             text-decoration: none;
             color: black;
         }
-            width: 500px;
+            width: 700px;
         }
 
         .side1 h1 {
             font-size: 40px;
-        }
+        } 
 
         .side1 p {
             font-size: 17px;
@@ -336,35 +336,31 @@
         <div class="heading">Job Portal</div>
         <span class="sideMenuButton" onclick="openNavbar()">&#9776;</span>
 
-        @* @{
-            var userRole = ViewData["UserRole"] as string;
-        } *@
+        
 
         <div class="navbar">
             <ul>
                 <li><a asp-controller="Account" asp-action="Dashboard">Home</a></li>
 
-                @if (userRole == "Admin" || userRole == "Recruiter")
+                @if ( userRole == "Recruiter")
                 {
                     <li>
                         <a asp-controller="Job" asp-action="JobPost">JobPost</a>
                     </li>
                     <li>
-                        <a asp-controller="Recruiter" asp-action="ViewApplication">Applications</a>
+                        <a asp-controller="Recruiter" asp-action="ViewCandidateApplicationForm">Candidates Applications</a>
                     </li>
                 }
 
-                @if (userRole == "Admin" || userRole == "Candidate")
+                @if ( userRole == "Candidate")
                 {
                     <li>
                         <a asp-controller="Job" asp-action="JobList">JobList</a>
                     </li>
-
-
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">Account</a>
+                        <a href="#" class="dropdown-toggle">User Account</a>
                         <ul class="dropdown-menu">
-                            <li><a asp-controller="Profile" asp-action="ShowProfile">My Profile</a></li>
+                            <li><a asp-controller="Profile" asp-action="ShowUserProfile">My Profile</a></li>
                             <li><a asp-controller="Application" asp-action="JobApplicationIndex">My Applications</a></li>
                         </ul>
                     </li>
@@ -374,24 +370,21 @@
         </div>
     </nav>
 
-
-    
-
     <div class="line" id="Home">
         <div class="side1">
             <h1>Find your dream job with us !!!</h1>
         </div>
         <div class="side2">
-            <img src="\JP1.jpg" width="500hv">
+            <img src="\jobportal.jpg" width="500hv">
         </div>
     </div>
-    <footer>
+    @* <footer>
         <div class="center">
             <div class="title1">About Us</div>
             <div class="content1">
                 A job portal application offers a multitude of benefits for both job seekers and employers, facilitating the recruitment process and enhancing the overall job search experience. Job portal applications serve as invaluable tools for connecting job seekers with employers, fostering a seamless and efficient recruitment process while offering a plethora of resources and opportunities for both parties involved.
             </div>
         </div>
-    </footer>
+    </footer> *@
 </body>
 </html>

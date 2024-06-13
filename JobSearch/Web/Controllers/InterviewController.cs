@@ -10,11 +10,11 @@ namespace Web.Controllers
 {
     public class InterviewController : Controller
     {
-        private readonly AppdbContext _context;
+        private readonly AppdbContext _dbcontext;
 
         public InterviewController(AppdbContext context)
         {
-            _context = context;
+            _dbcontext = context;
         }
 
 
@@ -23,7 +23,7 @@ namespace Web.Controllers
         [Authorize(Roles = "Recruiter")]
         public IActionResult ScheduleInterview(Guid applicationid)
         {
-            var applicationDetail = _context.Applications.Where(application => application.ApplicationId == applicationid).FirstOrDefault();
+            var applicationDetail = _dbcontext.Applications.Where(application => application.ApplicationId == applicationid).FirstOrDefault();
                 var interviewModel = new InterviewViewModel
                 {
                     ApplicationId = applicationid,
@@ -52,8 +52,8 @@ namespace Web.Controllers
                     
 
                 };
-                _context.Interviews.Add(interview);
-                _context.SaveChanges();
+                _dbcontext.Interviews.Add(interview);
+                _dbcontext.SaveChanges();
 
                 return RedirectToAction("Dashboard");
             }

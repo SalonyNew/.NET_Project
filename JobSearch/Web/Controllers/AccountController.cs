@@ -15,14 +15,14 @@ namespace Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly AppdbContext _context;
+        private readonly AppdbContext _dbcontext;
         private readonly IConfiguration _config;
         private readonly AESEncryptionUtility _encryption;
         private readonly JWTHelper _helper;
 
         public AccountController(AppdbContext context, IConfiguration config, AESEncryptionUtility encryption, JWTHelper helper)
         {
-            _context = context;
+            _dbcontext = context;
             _config = config;
             _encryption = encryption;
             _helper = helper;
@@ -35,30 +35,30 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Signup(Signup model)
+        public IActionResult Signup(SignUp model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    // Check if a user with the same email already exists
-                    if (_context.UserCredentials.Any(u => u.Email == model.Email))
+                    
+                    if (_dbcontext.UserCredentials.Any(u => u.Email == model.Email))
                     {
                         ModelState.AddModelError("Email", "A user with this email already exists.");
                         return View(model);
                     }
 
-                    // Encrypt the password and generate salt
+                    
                     var passwordHash = _encryption.Encrypt(model.Password, _config["EncryptionKey"]!, out string passwordSalt);
 
-                    // Create a new user
+                    
                     var user = new UserCredential
                     {
                         Name = model.Name,
                         Email = model.Email,
                         Age = model.Age,
                         Gender = model.Gender,
-                        RoleId = _context.Roles
+                        RoleId = _dbcontext.Roles
                             .Where(role => role.Name == model.Role)
                             .Select(role => role.RoleId)
                             .FirstOrDefault(),
@@ -70,9 +70,9 @@ namespace Web.Controllers
                         Dob = model.Dob
                     };
 
-                    // Save the new user to the database
-                    _context.UserCredentials.Add(user);
-                    _context.SaveChanges();
+                    
+                    _dbcontext.UserCredentials.Add(user);
+                    _dbcontext.SaveChanges();
                     TempData["SignupSuccess"] = true;
 
                     return RedirectToAction("Dashboard");
@@ -100,7 +100,7 @@ namespace Web.Controllers
                 if (ModelState.IsValid)
                 {
                     
-                    var user = _context.UserCredentials
+                    var user = _dbcontext.UserCredentials
                         .Where(u => u.Email == model.Email)
                         .FirstOrDefault();
 
@@ -117,7 +117,7 @@ namespace Web.Controllers
                     if (user.PasswordHash == passwordHash)
                     {
                         
-                        var roleName = _context.Roles
+                        var roleName = _dbcontext.Roles
                             .Where(role => role.RoleId == user.RoleId)
                             .Select(role => role.Name)
                             .FirstOrDefault();
@@ -157,7 +157,10 @@ namespace Web.Controllers
             Response.Cookies.Delete("jwtToken");
             return RedirectToAction("Index", "Home");
         }
-
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
         public IActionResult Dashboard()
         {
             

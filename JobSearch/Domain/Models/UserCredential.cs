@@ -27,7 +27,7 @@ public partial class UserCredential
 
     public string? PhoneNo { get; set; }
 
-    public DateOnly? Dob { get; set; }
+    public DateTime Dob { get; set; }
 
     public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
 

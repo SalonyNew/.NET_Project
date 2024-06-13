@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+        }
+
+            .header .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .header h1 {
+                margin: 0;
+            }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+            .nav-links li {
+                margin-left: 20px;
+            }
+
+            .nav-links a {
+                color: white;
+                text-decoration: none;
+                font-size: 16px;
+            }
+
+                .nav-links a:hover {
+                    text-decoration: underline;
+                }
+
+        .about-us {
+            padding: 50px 0;
+            background-color: white;
+            margin-bottom: 20px;
+        }
+
+            .about-us h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .about-us p {
+                font-size: 16px;
+                line-height: 1.6;
+            }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+            .footer p {
+                margin: 0;
+            }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>About Us</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    @* <li><a asp-controller="Home" asp-action="AboutUs">About Us</a></li> *@
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="about-us">
+        <div class="container">
+            <h2>Job Portal</h2>
+            <p>An online job portal is a dynamic platform that revolutionizes the way job seekers and employers connect in the digital age. 
+               It serves as a comprehensive database where job vacancies and candidate profiles are showcased, facilitating a seamless recruitment process. 
+               For job seekers, these portals provide access to a wide array of job listings across various industries and locations, allowing users to filter
+               and find opportunities that match their skills, experience, and career aspirations. Advanced features like resume building tools, 
+               job alerts, and career resources empower candidates to present themselves effectively and stay informed about new openings..</p>
+
+            <h2>Our Mission</h2>
+            <p>The mission of an online job portal is to seamlessly connect job seekers with employers, providing a user-friendly platform for discovering 
+                and applying to job opportunities. It aims to streamline the recruitment process, ensuring efficiency and accessibility for all users. Ultimately,
+                it strives to empower individuals and organizations to achieve their career and hiring goals with ease and transparency.</p>
+    </section>
+
+   @*  <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Your Company. All rights reserved.</p>
+        </div>
+    </footer> *@
+</body>
+</html>

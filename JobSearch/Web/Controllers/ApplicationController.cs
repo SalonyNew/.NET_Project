@@ -6,19 +6,19 @@ using Microsoft.Identity.Client;
 using Services;
 using Services.ViewModels;
 using System;
-using System.Data.SqlTypes;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 
 namespace Web.Controllers
 {
     public class ApplicationController : Controller
     {
-        private readonly AppdbContext _context;
+        private readonly AppdbContext _dbcontext;
 
         public ApplicationController(AppdbContext context)
         {
-            _context = context;
+            _dbcontext = context;
         }
 
         [HttpGet]
@@ -29,26 +29,33 @@ namespace Web.Controllers
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
             {
-                
-                var jobPost = _context.JobPosts.FirstOrDefault(j => j.JobPostId == jobId);
+                var jobPost = _dbcontext.JobPosts.FirstOrDefault(j => j.JobPostId == jobId);
                 if (jobPost == null)
-                {                  
+                {
                     Console.WriteLine($"Invalid JobId: {jobId}");
-                    return RedirectToAction("Index", "Home"); 
+                    return RedirectToAction("Index", "Home");
                 }
 
-                var existingApplication = _context.Applications
+                var existingApplication = _dbcontext.Applications
                     .FirstOrDefault(a => a.UserId == userGuid && a.JobPostId == jobId);
+
+                var applicationViewModel = new ApplicationViewModel
+                {
+                    JobPostId = jobId,
+                    CompanyName = jobPost.CompanyName,
+                    JobTitle = jobPost.JobTitle
+                };
 
                 if (existingApplication != null)
                 {
-                    return RedirectToAction("EditApplication", new { applicationId = existingApplication.ApplicationId });
+                    return RedirectToAction("EditJobApplicationForm", new { applicationId = existingApplication.ApplicationId });
                 }
+
+                ViewBag.JobId = jobId;
+                return View(applicationViewModel);
             }
 
-           
-            ViewBag.JobPostId = jobId;
-            return View(new ApplicationViewModel());
+            return RedirectToAction("Login", "Account"); 
         }
 
         [HttpPost]
@@ -63,24 +70,28 @@ namespace Web.Controllers
                     ModelState.AddModelError(string.Empty, "User is not authenticated.");
                     return View(model);
                 }
-                var jobPost = _context.JobPosts.Find(jobId);
+
+                var jobPost = _dbcontext.JobPosts.Find(jobId);
                 if (jobPost == null)
                 {
                     ModelState.AddModelError(string.Empty, "Job post not found.");
                     return View(model);
                 }
 
-
-                string jwtToken = HttpContext.Request.Cookies["jwtToken"]!;
-                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-                JwtSecurityToken parsedToken = tokenHandler.ReadJwtToken(jwtToken);
-
                 string userId = GetUserIdFromLoggedInUser();
-
                 if (Guid.TryParse(userId, out Guid userGuid))
                 {
-                    string userRole = parsedToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value!;
+                    string jwtToken = HttpContext.Request.Cookies["jwtToken"];
+                    if (jwtToken == null)
+                    {
+                        ModelState.AddModelError(string.Empty, "JWT token not found.");
+                        return View(model);
+                    }
 
+                    JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+                    JwtSecurityToken parsedToken = tokenHandler.ReadJwtToken(jwtToken);
+
+                    string userRole = parsedToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
                     if (userRole == "Candidate")
                     {
                         var application = new Application
@@ -90,21 +101,20 @@ namespace Web.Controllers
                             PhoneNo = model.PhoneNo,
                             Education = model.Education,
                             Resume = model.Resume,
-                            ApplicationDate = model.ApplicationDate,
+                            ApplicationDate = DateTime.Now,
                             CreatedAt = DateTime.Now,
                             UpdatedOn = DateTime.Now,
                             UserId = userGuid,
                             JobPostId = jobId
                         };
-
-                        _context.Applications.Add(application);
-                        _context.SaveChanges();
+                        ViewBag.JobId = jobId;
+                        _dbcontext.Applications.Add(application);
+                        _dbcontext.SaveChanges();
                         return LocalRedirect("/Account/Dashboard");
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "You do not have permission to apply for a job.");
-                        return Forbid();
+                        return Forbid("You do not have permission to apply for a job.");
                     }
                 }
                 else
@@ -112,26 +122,32 @@ namespace Web.Controllers
                     ModelState.AddModelError(string.Empty, "Invalid UserId format.");
                 }
             }
-
+            
             return View(model);
         }
 
         [HttpGet]
         [Authorize(Roles = "Candidate")]
-        public IActionResult JobApplicationIndex(Application model)
+        public IActionResult JobApplicationIndex(ApplicationViewModel model)
         {
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
             {
-                var applications = _context.Applications
-                    .Where(a => a.UserId == userGuid)
+                var applications = _dbcontext.Applications
+                    .Where(a => a.UserId == userGuid ).Select(a=> new ApplicationViewModel
+                    {
+                        ApplicationId = a.ApplicationId,
+                        ApplicationDate =a.ApplicationDate,
+                        CompanyName=a.JobPost.CompanyName,
+                        JobTitle=a.JobPost.JobTitle,
+                    })
                     .ToList();
                 return View(applications);
             }
+            
 
             return NotFound();
         }
-
 
         [HttpGet]
         [Authorize(Roles = "Candidate")]
@@ -140,7 +156,7 @@ namespace Web.Controllers
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
             {
-                var application = _context.Applications
+                var application = _dbcontext.Applications
                     .FirstOrDefault(a => a.ApplicationId == applicationId && a.UserId == userGuid);
 
                 if (application == null)
@@ -150,16 +166,14 @@ namespace Web.Controllers
 
                 var model = new ApplicationViewModel
                 {
-                    ApplicationId = application.ApplicationId,
+                    ApplicationId = application.ApplicationId,  
                     Name = application.Name,
-                    Email = application.Email,
-                    PhoneNo = application.PhoneNo,
-                    Education = application.Education,
+                    PhoneNo = application.PhoneNo,                   
                     Resume = application.Resume,
-                    ApplicationDate = application.ApplicationDate
+                    
                 };
 
-                ViewBag.JobPostId = application.JobPostId;
+                ViewBag.JobId = application.JobPostId;
                 return View(model);
             }
 
@@ -175,7 +189,7 @@ namespace Web.Controllers
                 var userId = GetUserIdFromLoggedInUser();
                 if (Guid.TryParse(userId, out Guid userGuid))
                 {
-                    var application = _context.Applications
+                    var application = _dbcontext.Applications
                         .FirstOrDefault(a => a.ApplicationId == applicationId && a.UserId == userGuid);
 
                     if (application == null)
@@ -183,18 +197,15 @@ namespace Web.Controllers
                         return NotFound();
                     }
 
-                    application.Name = model.Name;
-                    application.Email = model.Email;
-                    application.PhoneNo = model.PhoneNo;
-                    application.Education = model.Education;
+                   
+                    application.PhoneNo = model.PhoneNo;                   
                     application.Resume = model.Resume;
-                    application.ApplicationDate = model.ApplicationDate;
                     application.UpdatedOn = DateTime.Now;
 
-                    _context.Applications.Update(application);
-                    _context.SaveChanges();
+                    _dbcontext.Applications.Update(application);
+                    _dbcontext.SaveChanges();
 
-                    return RedirectToAction("Dashboard", "Account");
+                    return RedirectToAction("JobApplicationIndex", new { JobPostId = application.JobPostId });
                 }
                 else
                 {
@@ -212,7 +223,7 @@ namespace Web.Controllers
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
             {
-                var application = _context.Applications
+                var application = _dbcontext.Applications
                     .FirstOrDefault(a => a.ApplicationId == applicationId && a.UserId == userGuid);
 
                 if (application == null)
@@ -233,7 +244,7 @@ namespace Web.Controllers
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
             {
-                var application = _context.Applications
+                var application = _dbcontext.Applications
                     .FirstOrDefault(a => a.ApplicationId == applicationId && a.UserId == userGuid);
 
                 if (application == null)
@@ -266,7 +277,7 @@ namespace Web.Controllers
             var userId = GetUserIdFromLoggedInUser();
             if (Guid.TryParse(userId, out Guid userGuid))
             {
-                var application = _context.Applications
+                var application = _dbcontext.Applications
                     .FirstOrDefault(a => a.ApplicationId == applicationId && a.UserId == userGuid);
 
                 if (application == null)
@@ -274,8 +285,8 @@ namespace Web.Controllers
                     return NotFound();
                 }
 
-                _context.Applications.Remove(application);
-                _context.SaveChanges();
+                _dbcontext.Applications.Remove(application);
+                _dbcontext.SaveChanges();
 
                 return RedirectToAction("Dashboard", "Account");
             }
@@ -283,12 +294,10 @@ namespace Web.Controllers
             return NotFound();
         }
 
-
-
         private string GetUserIdFromLoggedInUser()
         {
             var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            var userId = _context.UserCredentials.FirstOrDefault(u => u.Email == userEmail)?.UserId.ToString();
+            var userId = _dbcontext.UserCredentials.FirstOrDefault(u => u.Email == userEmail)?.UserId.ToString();
             return userId!;
         }
     }

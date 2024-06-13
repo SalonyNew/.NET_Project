@@ -1,0 +1,88 @@
+﻿@model Services.ViewModels.JobInfo
+
+@{
+    ViewData["Title"] = "Edit Job Post";
+}
+
+<style>
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<h2>Edit Job Post</h2>
+
+<form asp-controller="Job" asp-action="EditJobPost" method="post">
+    <input type="hidden" asp-for="JobPostId" value="@Model.JobPostId" />
+    <div class="form-group">
+        <label asp-for="CompanyName">Company Name</label>
+        <input asp-for="CompanyName" class="form-control" />
+        <span asp-validation-for="CompanyName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="JobTitle">Job Title</label>
+        <input asp-for="JobTitle" class="form-control" />
+        <span asp-validation-for="JobTitle" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="JobDescription">Job Description</label>
+        <textarea asp-for="JobDescription" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="JobDescription" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="QualificationRequired">Qualification Required</label>
+        <input asp-for="QualificationRequired" class="form-control" />
+        <span asp-validation-for="QualificationRequired" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Location">Location</label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Deadline">Deadline</label>
+        <input asp-for="Deadline" type="date" class="form-control" />
+        <span asp-validation-for="Deadline" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Type">Job Type</label>
+        <select asp-for="Type" class="form-control">
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Contract">Freelancer</option>
+        </select>
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Job Post</button>
+</form>

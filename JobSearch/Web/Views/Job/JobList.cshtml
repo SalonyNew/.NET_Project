@@ -11,34 +11,40 @@
     <style>
         /* Your existing CSS styles here */
 
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
         .navbar {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            background-color: #007bff;
+            padding: 10px 20px;
         }
 
         .nav-links {
             list-style: none;
             margin: 0;
             padding: 0;
+            display: flex;
         }
 
             .nav-links li {
-                display: inline-block;
                 margin-right: 20px;
             }
 
-                .nav-links li a {
-                    color: white;
-                    font-size: 18px;
-                    text-decoration: none;
-                }
+            .nav-links a {
+                color: white;
+                text-decoration: none;
+                font-size: 16px;
+            }
 
-                .nav-links li:last-child {
-                    margin-right: 0;
+                .nav-links a:hover {
+                    text-decoration: underline;
                 }
 
         .search-form {
@@ -46,24 +52,32 @@
             align-items: center;
         }
 
-            .search-form input[type="text"] {
-                padding: 8px;
-                margin-right: 10px;
+            .search-form input,
+            .search-form select,
+            .search-form button {
+                padding: 10px;
                 border: 1px solid #ccc;
-                border-radius: 4px;
+                border-radius: 5px;
+                font-size: 16px;
+                margin-right: 10px;
             }
 
+                .search-form input:focus,
+                .search-form select:focus,
+                .search-form button:focus {
+                    outline: none;
+                    border-color: #0056b3;
+                }
+
         .search-button {
-            padding: 8px 16px;
-            background-color: #4CAF50;
+            background-color: #0056b3;
             color: white;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
         }
 
             .search-button:hover {
-                background-color: #45a049;
+                background-color: #003f8a;
             }
 
         .container {
@@ -157,18 +171,24 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <ul class="nav-links">
-            <li><a asp-controller="Account" asp-action="Dashboard">Home</a></li>
-        </ul>
-        <form action="@Url.Action("SearchJobs", "Job")" method="get" class="search-form">
-            <input type="text" name="location" placeholder="Location">
-            <input type="text" name="type" placeholder="Type">
-            <button type="submit" class="search-button">Search</button>
-        </form>
-    </div>
+   <div class="navbar">
+    <ul class="nav-links">
+        <li><a asp-controller="Account" asp-action="Dashboard">Home</a></li>
+    </ul>
+    <form action="@Url.Action("SearchJobs", "Job")" method="get" class="search-form">
+        <input type="text" name="location" placeholder="Location">
+        <select name="Job Type" class="type-dropdown">
+            <option value="">Select Type</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Freelancer">Freelancer</option>
+        </select>
+        <button type="submit" class="search-button">Search</button>
+    </form>
+</div>
+
     <div class="container">
-        <h2>Job Listings</h2>
+        <h2>Job Lists</h2>
         <div class="job-listings">
             @foreach (var job in Model)
             {
@@ -176,13 +196,13 @@
                     <h5>@job.JobTitle</h5>
                     <p><strong>Company Name:</strong> @job.CompanyName</p>
                     <h6>@job.Location</h6>
-                    <p><strong>Description:</strong> @job.JobDescription</p>
+                    <p><strong>Job Description:</strong> @job.JobDescription</p>
                     <p><strong>Qualification Required:</strong> @job.QualificationRequired</p>
-                    <p><strong>Type:</strong> @job.Type</p>
+                    <p><strong>Job Type:</strong> @job.Type</p>
                     <p><strong>Deadline:</strong> @job.Deadline.ToString("MM/dd/yyyy")</p>
                     @if (job.ApplicationId != null)
                     {
-                        <a href="@Url.Action("CreateApplication", "Application", new { jobId = job.JobPostId })" class="apply-button">Apply Now</a>
+                        <a href="@Url.Action("JobApplicationForm", "Application", new { jobId = job.JobPostId })" class="apply-button">Apply Now</a>
                     }
                 </div>
             }

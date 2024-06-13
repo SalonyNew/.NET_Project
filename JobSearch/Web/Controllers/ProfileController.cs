@@ -10,20 +10,20 @@ namespace Web.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly AppdbContext _context;
+        private readonly AppdbContext _dbcontext;
 
         public ProfileController(AppdbContext context)
         {
-            _context = context;
+            _dbcontext = context;
         }
         [HttpGet]
-        public IActionResult Profile()
+        public IActionResult UserProfile()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Profile(UserInfo model)
+        public IActionResult UserProfile(UserInfo model)
         {
             if (ModelState.IsValid)
             {
@@ -58,8 +58,8 @@ namespace Web.Controllers
                                 UserId = Guid.Parse(userId)
                             };
 
-                            _context.Profiles.Add(profile);
-                            _context.SaveChanges();
+                            _dbcontext.Profiles.Add(profile);
+                            _dbcontext.SaveChanges();
 
                             return RedirectToAction("Dashboard");
                         }
@@ -84,11 +84,11 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ShowProfile()
+        public IActionResult ShowUserProfile()
         {
             var userId = GetUserIdFromLoggedInUser();
 
-            var userInfos = _context.Profiles
+            var userInfos = _dbcontext.Profiles
          .Where(profile => profile.UserId == Guid.Parse(userId))
          .Select(profile => new UserInfo
          {
@@ -96,11 +96,11 @@ namespace Web.Controllers
              WorkExperience = profile.WorkExperience,
              Skills = profile.Skills,
              Resume = profile.Resume,
-             Name = _context.UserCredentials
+             Name = _dbcontext.UserCredentials
                  .Where(usercredential => usercredential.UserId == profile.UserId)
                  .Select(usercredential => usercredential.Name)
                  .FirstOrDefault(),
-             Email = _context.UserCredentials
+             Email = _dbcontext.UserCredentials
                  .Where(usercredential => usercredential.UserId == profile.UserId)
                  .Select(usercredential => usercredential.Email)
                  .FirstOrDefault()
@@ -112,7 +112,7 @@ namespace Web.Controllers
         public string GetUserIdFromLoggedInUser()
         {
             var UserData = User.FindFirst(ClaimTypes.Email)?.Value;
-            var UserId = _context.UserCredentials.FirstOrDefault(u => u.Email == UserData)!.UserId.ToString();
+            var UserId = _dbcontext.UserCredentials.FirstOrDefault(u => u.Email == UserData)!.UserId.ToString();
             return UserId;
 
         }

@@ -69,7 +69,7 @@ app.Use(async (context, next) =>
             context.Response.Redirect(loginUrl);
         }
     }
-});
+ });
 
 app.Use(async (context, next) =>
 {

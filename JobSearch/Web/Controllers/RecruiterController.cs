@@ -7,21 +7,21 @@ namespace Web.Controllers
 {
     public class RecruiterController : Controller
     {
-        private readonly AppdbContext _context;
+        private readonly AppdbContext _dbcontext;
 
         public RecruiterController(AppdbContext context)
         {
             
-            _context = context;
+            _dbcontext = context;
         }
 
 
         [HttpGet]
         [Authorize(Roles = "Recruiter")]
-        public IActionResult ViewApplication(ApplicationViewModel model)
+        public IActionResult ViewCandidateApplicationForm(ApplicationViewModel model)
         {
 
-            var application = _context.Applications.Select(app => new ApplicationViewModel
+            var application = _dbcontext.Applications.Select(app => new ApplicationViewModel
             {
                ApplicationId=app.ApplicationId,
                Name=app.Name,
